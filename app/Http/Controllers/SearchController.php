@@ -7,12 +7,24 @@ use App\Models\Content;
 use App\Models\Menu;
 use App\Models\SubMenu;
 use Illuminate\Http\Request;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use Illuminate\View\View;
 
 class SearchController extends Controller
 {
+    private const PER_PAGE = 9;
+
+    /**
+     * @var array<string, string>
+     */
+    private const PAGE_TYPES = [
+        'all' => 'All',
+        'article' => 'Article',
+        'page' => 'Page',
+    ];
+
     /**
      * Site-wide search across published articles and menu pages. Results
      * from every source are merged into one flat, clickable results list.
@@ -20,8 +32,13 @@ class SearchController extends Controller
     public function index(Request $request): View
     {
         $query = trim((string) $request->query('q', ''));
+        $type = $request->query('type', 'all');
 
-        $results = $query === ''
+        if (! array_key_exists($type, self::PAGE_TYPES)) {
+            $type = 'all';
+        }
+
+        $allResults = $query === ''
             ? collect()
             : $this->searchArticles($query)
                 ->concat($this->searchMenus($query))
@@ -29,10 +46,26 @@ class SearchController extends Controller
                 ->concat($this->searchContents($query))
                 ->values();
 
+        $filteredResults = $type === 'all'
+            ? $allResults
+            : $allResults->where('type_key', $type)->values();
+
+        $page = max(1, $request->integer('page', 1));
+
+        $results = new LengthAwarePaginator(
+            $filteredResults->forPage($page, self::PER_PAGE)->values(),
+            $filteredResults->count(),
+            self::PER_PAGE,
+            $page,
+            ['path' => $request->url(), 'query' => $request->query()],
+        );
+
         return view('pages.search', [
             'title' => __('Search results'),
             'query' => $query,
             'results' => $results,
+            'pageTypes' => self::PAGE_TYPES,
+            'selectedType' => $type,
         ]);
     }
 
@@ -51,6 +84,7 @@ class SearchController extends Controller
             ->get()
             ->map(fn (Article $article) => [
                 'type' => __('Article'),
+                'type_key' => 'article',
                 'title' => $article->title,
                 'description' => Str::limit((string) $article->excerpt, 120),
                 'image' => $article->imageUrl(),
@@ -73,6 +107,7 @@ class SearchController extends Controller
             ->get()
             ->map(fn (Menu $menu) => [
                 'type' => __('Page'),
+                'type_key' => 'page',
                 'title' => $menu->label(),
                 'description' => Str::limit((string) $menu->description(), 120),
                 'image' => null,
@@ -96,6 +131,7 @@ class SearchController extends Controller
             ->get()
             ->map(fn (SubMenu $subMenu) => [
                 'type' => __('Page'),
+                'type_key' => 'page',
                 'title' => $subMenu->label,
                 'description' => $this->excerptFromHtml($subMenu->description()),
                 'image' => null,
@@ -120,6 +156,7 @@ class SearchController extends Controller
             ->get()
             ->map(fn (Content $content) => [
                 'type' => __('Page'),
+                'type_key' => 'page',
                 'title' => $content->title,
                 'description' => $this->excerptFromHtml($content->description()),
                 'image' => $content->imageUrl(),

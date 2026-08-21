@@ -313,7 +313,7 @@ class MenuSeeder extends Seeder
 
         return <<<HTML
             <h2>{$heading}</h2>
-            <img src="{$image}" alt="{$imageAlt}">
+            <p><img src="{$image}" alt="{$imageAlt}"></p>
             {$paragraphs}
             <h3>{$subheading}</h3>
             <ul>{$highlights}</ul>

@@ -39,8 +39,8 @@
                 {{ __('Contact Us') }}
             </button>
             <form action="{{ route('search') }}" method="GET" class="relative hidden max-w-xs items-center md:flex">
-                <input type="text" name="q" value="{{ request('q') }}" placeholder="{{ __('Search this website') }}" class="w-64 rounded border-0 py-2 pl-3 pr-10 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-accent">
-                <button type="submit" class="absolute right-0 top-0 flex h-full items-center rounded-r border-l border-slate-200 bg-white px-3 text-slate-500">
+                <input type="text" name="q" value="{{ request('q') }}" placeholder="{{ __('Search this website') }}" class="w-64 rounded bg-white py-2 pl-3 pr-12 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-accent">
+                <button type="submit" class="absolute right-0 top-0 flex h-full items-center rounded-r bg-accent px-3 text-white hover:bg-accent-dark" aria-label="{{ __('Search') }}">
                     <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" /></svg>
                 </button>
             </form>
