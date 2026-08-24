@@ -55,11 +55,13 @@ class SubMenuForm
                 RichEditor::make('description_en')
                     ->label('Description (English)')
                     ->helperText('Optional — shown above this sub menu\'s content list. Leave empty to show only the content.')
+                    ->fileAttachmentsMaxSize(10240)
                     ->columnSpanFull(),
 
                 RichEditor::make('description_id')
                     ->label('Description (Bahasa Indonesia)')
                     ->helperText('Optional — falls back to the English description if left empty.')
+                    ->fileAttachmentsMaxSize(10240)
                     ->columnSpanFull(),
 
                 TextInput::make('button_url')

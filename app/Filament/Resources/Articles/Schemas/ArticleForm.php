@@ -68,6 +68,7 @@ class ArticleForm
                     ->image()
                     ->disk('public')
                     ->directory('articles')
+                    ->maxSize(10240)
                     ->columnSpanFull(),
 
                 Textarea::make('excerpt')
@@ -77,6 +78,7 @@ class ArticleForm
                     ->columnSpanFull(),
 
                 RichEditor::make('body')
+                    ->fileAttachmentsMaxSize(10240)
                     ->columnSpanFull(),
 
                 DateTimePicker::make('event_date')

@@ -19,6 +19,7 @@ class HeroSlideForm
                     ->image()
                     ->disk('public')
                     ->directory('hero-slides')
+                    ->maxSize(10240)
                     ->required()
                     ->columnSpanFull(),
 

@@ -74,6 +74,7 @@ class ContentForm
                     ->image()
                     ->disk('public')
                     ->directory('contents')
+                    ->maxSize(10240)
                     ->columnSpanFull(),
 
                 Textarea::make('description_en')
@@ -105,6 +106,7 @@ class ContentForm
 
                 RichEditor::make('body')
                     ->label('Detail page content')
+                    ->fileAttachmentsMaxSize(10240)
                     ->columnSpanFull(),
 
                 Toggle::make('is_active')
