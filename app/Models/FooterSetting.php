@@ -82,6 +82,19 @@ class FooterSetting extends Model
     }
 
     /**
+     * `acknowledgement_primary` is authored in English, `acknowledgement_secondary`
+     * is its translation (currently always Bahasa Indonesia).
+     */
+    public function acknowledgement(?string $locale = null): ?string
+    {
+        $locale ??= app()->getLocale();
+
+        return $locale === 'id'
+            ? ($this->acknowledgement_secondary ?: $this->acknowledgement_primary)
+            : ($this->acknowledgement_primary ?: $this->acknowledgement_secondary);
+    }
+
+    /**
      * @return array<string, string>
      */
     protected function casts(): array

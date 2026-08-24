@@ -7,11 +7,7 @@
 
     <section class="bg-surface py-10">
         <div class="mx-auto max-w-7xl px-4">
-            @if ($description)
-                <div class="mb-8 text-slate-600 [&_a]:text-primary [&_a]:underline [&_h2]:mt-6 [&_h2]:text-xl [&_h2]:font-bold [&_h2]:text-primary [&_h3]:mt-4 [&_h3]:text-lg [&_h3]:font-bold [&_h3]:text-primary [&_img]:mt-3 [&_img]:h-auto [&_img]:max-w-full [&_img]:rounded-lg [&_li]:mt-1 [&_ol]:mt-3 [&_ol]:list-decimal [&_ol]:pl-5 [&_p]:mt-3 [&_p]:leading-relaxed [&_ul]:mt-3 [&_ul]:list-disc [&_ul]:pl-5 first:[&_*]:mt-0">
-                    {!! $description !!}
-                </div>
-            @endif
+            <x-rich-content :content="$description" class="mb-8" />
 
             @if ($buttonUrl ?? null)
                 <x-pill-link :href="$buttonUrl" class="!w-auto mb-8 px-5 py-2.5">

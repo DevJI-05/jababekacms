@@ -83,16 +83,11 @@
             </ul>
         </div>
 
-        <div class="relative overflow-hidden rounded bg-primary-dark p-5">
-            <x-brand-logo variant="white" class="h-9 w-auto" />
-            @if ($footer->acknowledgement_primary)
+        <div>
+            <x-brand-logo variant="white" class="h-20 w-56 object-cover object-center" />
+            @if ($footer->acknowledgement())
                 <p class="mt-4 text-xs leading-relaxed text-white/90">
-                    {{ $footer->acknowledgement_primary }}
-                </p>
-            @endif
-            @if ($footer->acknowledgement_secondary)
-                <p class="mt-3 text-xs leading-relaxed text-white/80">
-                    {{ $footer->acknowledgement_secondary }}
+                    {{ $footer->acknowledgement() }}
                 </p>
             @endif
         </div>

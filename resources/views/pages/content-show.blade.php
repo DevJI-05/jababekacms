@@ -17,11 +17,7 @@
                 </div>
             @endif
 
-            @if ($content->body)
-                <div class="mt-8 text-slate-700 [&_a]:text-primary [&_a]:underline [&_h2]:mt-6 [&_h2]:text-xl [&_h2]:font-bold [&_h2]:text-primary [&_h3]:mt-4 [&_h3]:text-lg [&_h3]:font-bold [&_h3]:text-primary [&_li]:mt-1 [&_ol]:mt-3 [&_ol]:list-decimal [&_ol]:pl-5 [&_p]:mt-3 [&_p]:leading-relaxed [&_ul]:mt-3 [&_ul]:list-disc [&_ul]:pl-5 first:[&_*]:mt-0">
-                    {!! $content->body !!}
-                </div>
-            @endif
+            <x-rich-content :content="$content->body" class="mt-8" />
         </div>
     </section>
 </x-layouts.app>
