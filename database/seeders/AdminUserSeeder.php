@@ -16,13 +16,13 @@ class AdminUserSeeder extends Seeder
      */
     public function run(): void
     {
-        User::updateOrCreate(
-            ['email' => 'admin@kotajababeka.com'],
-            [
-                'name' => 'Admin Kota Jababeka',
-                'password' => Hash::make('password'),
-                'email_verified_at' => now(),
-            ]
-        );
+        User::query()->delete();
+
+        User::create([
+            'name' => config('admin.name'),
+            'email' => config('admin.email'),
+            'password' => Hash::make(config('admin.password')),
+            'email_verified_at' => now(),
+        ]);
     }
 }
