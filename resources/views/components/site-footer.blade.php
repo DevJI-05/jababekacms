@@ -2,7 +2,7 @@
     $footer = \App\Models\FooterSetting::current();
 @endphp
 
-<footer class="bg-primary text-white">
+<footer class="bg-accent text-white">
     <div class="mx-auto grid max-w-7xl grid-cols-1 gap-10 px-4 py-10 sm:grid-cols-2 lg:grid-cols-4">
         <div>
             <h3 class="mb-4 font-bold">{{ __('Quick Links') }}</h3>
@@ -37,7 +37,7 @@
             <h3 class="mb-3 mt-6 font-bold">{{ __('Follow Us') }}</h3>
             <div class="flex gap-2">
                 @foreach ($footer->socialLinks() as $social)
-                    <a href="{{ $social['url'] }}" aria-label="{{ ucfirst($social['network']) }}" class="flex size-8 items-center justify-center rounded-full bg-accent hover:bg-white hover:text-primary">
+                    <a href="{{ $social['url'] }}" aria-label="{{ ucfirst($social['network']) }}" class="flex size-8 items-center justify-center rounded-full bg-white text-accent hover:bg-accent-dark hover:text-white">
                         <svg class="size-4" viewBox="0 0 24 24" fill="currentColor">
                             @switch($social['network'])
                                 @case('facebook')
@@ -84,9 +84,9 @@
         </div>
 
         <div>
-            <x-brand-logo variant="white" class="h-20 w-56 object-cover object-center" />
+            <x-brand-logo variant="white-council" class="h-28 w-auto object-contain object-left" />
             @if ($footer->acknowledgement())
-                <p class="mt-4 text-xs leading-relaxed text-white/90">
+                <p class="mt-4 text-justify text-xs leading-relaxed text-white/90">
                     {{ $footer->acknowledgement() }}
                 </p>
             @endif

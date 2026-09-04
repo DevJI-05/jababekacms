@@ -4,16 +4,19 @@
 @source '../../storage/framework/views/*.php';
 
 @theme {
-    --font-sans: 'DM Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+    --font-sans: 'Manrope', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
         'Segoe UI Symbol', 'Noto Color Emoji';
 
-    --color-primary: #175a3a;
-    --color-primary-dark: #0f3d28;
-    --color-primary-light: #2c7a50;
-    --color-accent: #b78324;
-    --color-accent-dark: #96691c;
-    --color-accent-light: #d9b872;
-    --color-olive: #b1c42d;
-    --color-surface: #e8e9ea;
-    --color-brand-text: #2f664c;
+    --color-primary: #089a73;
+    --color-primary-dark: #067a5c;
+    --color-primary-light: #81e08e;
+    --color-accent: #069a9c;
+    --color-accent-dark: #057679;
+    --color-accent-light: #5cc7c8;
+    --color-olive: #172d3b;
+    --color-surface: #d0d9e0;
+    --color-surface-mint: #f2f9f7;
+    --color-brand-text: #172d3b;
+    --color-text-muted: #587789;
+    --color-neutral: #979797;
 }

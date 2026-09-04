@@ -90,5 +90,31 @@
 
     "Our News": "Berita Kami",
     "View all news": "Lihat semua berita",
-    "No news articles published yet.": "Belum ada artikel berita yang dipublikasikan."
+    "No news articles published yet.": "Belum ada artikel berita yang dipublikasikan.",
+
+    "Carbon and Impact Tracker": "Pelacak Karbon dan Dampak",
+    "This page is coming soon.": "Halaman ini akan segera hadir.",
+
+    "Measure your operational carbon footprint and monitor the environmental impact of your industrial estate through transparent, data-driven insights.": "Ukur jejak karbon operasional Anda dan pantau dampak lingkungan dari kawasan industri Anda melalui wawasan yang transparan dan berbasis data.",
+    "Carbon & Impact Tracker helps you understand where emissions come from, track environmental performance, and identify opportunities to build a more efficient and sustainable industrial ecosystem.": "Carbon & Impact Tracker membantu Anda memahami sumber emisi, melacak kinerja lingkungan, dan mengidentifikasi peluang untuk membangun ekosistem industri yang lebih efisien dan berkelanjutan.",
+    "Estimate your monthly emissions": "Perkirakan emisi bulanan Anda",
+    "Enter your facility's monthly consumption data. Results use Indonesia-specific emission factors per the GHG Protocol.": "Masukkan data konsumsi bulanan fasilitas Anda. Hasil menggunakan faktor emisi khusus Indonesia sesuai GHG Protocol.",
+    "Grid Electricity": "Listrik PLN",
+    "kWh/month": "kWh/bulan",
+    "Diesel/Fuel Oil": "Solar/Bahan Bakar Minyak",
+    "liters/month": "liter/bulan",
+    "Water Consumption": "Konsumsi Air",
+    "Waste Generated": "Sampah yang Dihasilkan",
+    "kg/month": "kg/bulan",
+    "Calculate": "Hitung",
+    "Estimated Monthly Footprint": "Perkiraan Jejak Karbon Bulanan",
+    "Breakdown": "Rincian",
+    "Diesel/Fuel": "Solar/Bahan Bakar",
+    "Waste": "Sampah",
+    "That's equivalent to...": "Setara dengan...",
+    "≈ 3 mangrove trees needed to absorb this CO₂ over 10 years": "≈ 3 pohon mangrove diperlukan untuk menyerap CO₂ ini selama 10 tahun",
+    "≈ 4 months of car driving (average Indonesian passenger vehicle)": "≈ 4 bulan berkendara mobil (rata-rata kendaraan penumpang Indonesia)",
+    "Ready to reduce your footprint?": "Siap mengurangi jejak karbon Anda?",
+    "Join the NZICC program and take the next step toward measurable carbon reduction and more sustainable industrial operations.": "Bergabunglah dengan program NZICC dan ambil langkah berikutnya menuju pengurangan karbon yang terukur dan operasi industri yang lebih berkelanjutan.",
+    "Connect with the NZICC Team": "Hubungi Tim NZICC"
 }

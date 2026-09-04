@@ -30,11 +30,11 @@ class AdminPanelProvider extends PanelProvider
             ->login()
             ->profile(isSimple: false)
             ->colors([
-                'primary' => Color::hex('#175A3A'),
+                'primary' => Color::hex('#089A73'),
             ])
             ->brandLogo(fn () => view('filament.brand-logo'))
             ->brandLogoHeight('4rem')
-            ->favicon(asset('images/brand/logo-color.png'))
+            ->favicon(asset('images/brand/logo.png'))
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\Filament\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\Filament\Pages')
             ->pages([

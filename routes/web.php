@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\CarbonTrackerController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MenuPageController;
 use App\Http\Controllers\SearchController;
@@ -9,6 +10,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::get('/search', [SearchController::class, 'index'])->name('search');
+
+Route::get('/carbon-tracker', [CarbonTrackerController::class, 'index'])->name('carbon-tracker');
 
 Route::get('/lang/{locale}', function (string $locale) {
     abort_unless(array_key_exists($locale, config('localization.supported')), 404);

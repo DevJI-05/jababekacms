@@ -8,38 +8,38 @@
         ->get();
 @endphp
 
-<div class="bg-primary-dark text-white">
+<div class="bg-white text-brand-text">
     <div class="mx-auto flex max-w-7xl items-center justify-end gap-2 px-4 py-1.5 text-xs sm:gap-4">
         <a href="#" class="hidden hover:underline sm:inline">{{ __('Skip to content') }}</a>
-        <span class="hidden text-white/30 sm:inline">|</span>
+        <span class="hidden text-neutral sm:inline">|</span>
         <a href="#" class="hidden hover:underline sm:inline">{{ __('Accessibility') }}</a>
-        <span class="hidden text-white/30 sm:inline">|</span>
+        <span class="hidden text-neutral sm:inline">|</span>
         <a href="#" class="hidden hover:underline sm:inline">{{ __('Connect with us') }}</a>
         <x-language-switcher class="sm:ml-2" />
-        <button type="button" class="ml-2 flex items-center gap-1.5 rounded bg-white px-2.5 py-1 font-semibold text-primary-dark sm:px-3">
+        <button type="button" class="ml-2 flex items-center gap-1.5 rounded bg-primary px-2.5 py-1 font-semibold text-white sm:px-3">
             <svg class="size-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0" /></svg>
             <span class="hidden sm:inline">{{ __('Updates (:count)', ['count' => 1]) }}</span>
         </button>
     </div>
 </div>
 
-<header class="bg-primary">
+<header class="bg-white">
     <div class="mx-auto flex max-w-7xl items-center gap-4 px-4 py-3 md:gap-6 md:py-4">
         <a href="{{ route('home') }}" class="shrink-0 leading-tight">
-            <x-brand-logo variant="white" class="h-11 w-auto object-cover object-center md:h-16 md:w-44" />
+            <x-brand-logo variant="color" class="h-14 w-auto object-contain object-left md:h-20" />
         </a>
 
         <div class="ml-auto hidden flex-1 items-center justify-end gap-3 md:flex">
-            <button type="button" class="flex items-center gap-2 rounded border border-white/50 px-4 py-2 text-sm font-medium text-white hover:bg-white/10">
+            <button type="button" class="flex items-center gap-2 rounded border border-primary/40 px-4 py-2 text-sm font-medium text-primary hover:bg-surface-mint">
                 <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18Zm0 0v-6m0 0V9m0 6H9m3 0h3" /></svg>
                 {{ __('Report it 24/7') }}
             </button>
-            <button type="button" class="flex items-center gap-2 rounded border border-white/50 px-4 py-2 text-sm font-medium text-white hover:bg-white/10">
+            <button type="button" class="flex items-center gap-2 rounded border border-primary/40 px-4 py-2 text-sm font-medium text-primary hover:bg-surface-mint">
                 <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h1.5a2.25 2.25 0 0 0 2.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106a1.125 1.125 0 0 0-1.173.417l-.97 1.293a11.25 11.25 0 0 1-5.964-5.964l1.293-.97a1.125 1.125 0 0 0 .417-1.173L8.963 3.102a1.125 1.125 0 0 0-1.091-.852H6.5A2.25 2.25 0 0 0 2.25 4.5v2.25Z" /></svg>
                 {{ __('Contact Us') }}
             </button>
             <form action="{{ route('search') }}" method="GET" class="relative hidden max-w-xs items-center md:flex">
-                <input type="text" name="q" value="{{ request('q') }}" placeholder="{{ __('Search this website') }}" class="w-64 rounded bg-white py-2 pl-3 pr-12 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-accent">
+                <input type="text" name="q" value="{{ request('q') }}" placeholder="{{ __('Search this website') }}" class="w-64 rounded border border-surface bg-white py-2 pl-3 pr-12 text-sm text-brand-text placeholder:text-neutral focus:outline-none focus:ring-2 focus:ring-accent">
                 <button type="submit" class="absolute right-0 top-0 flex h-full items-center rounded-r bg-accent px-3 text-white hover:bg-accent-dark" aria-label="{{ __('Search') }}">
                     <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" /></svg>
                 </button>
@@ -51,7 +51,7 @@
             data-mobile-menu-toggle
             aria-expanded="false"
             aria-controls="mobile-menu"
-            class="ml-auto flex size-10 items-center justify-center rounded text-white hover:bg-white/10 md:hidden"
+            class="ml-auto flex size-10 items-center justify-center rounded text-primary hover:bg-surface-mint md:hidden"
             aria-label="{{ __('Open menu') }}"
         >
             <svg data-mobile-menu-open-icon class="size-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" /></svg>
@@ -60,7 +60,7 @@
     </div>
 </header>
 
-<nav class="relative hidden border-b border-slate-200 bg-white md:block" data-mega-nav>
+<nav class="relative hidden bg-white md:block" data-mega-nav>
     <div class="mx-auto max-w-7xl px-4">
         <ul class="flex items-center gap-8 text-sm font-semibold text-primary">
             @foreach ($menus as $menu)

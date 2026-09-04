@@ -1,1 +1,1 @@
-<x-brand-logo variant="gold" class="h-auto w-44 object-cover object-center" />
+<x-brand-logo variant="color" class="h-auto w-44 object-contain object-center" />
