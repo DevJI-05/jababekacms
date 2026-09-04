@@ -2,7 +2,7 @@
 
 @php
     $sources = [
-        'color' => asset('images/brand/logo.png'),
+        'color' => asset('images/brand/logo2.png'),
         'black' => asset('images/brand/logo-black.png'),
         'white' => asset('images/brand/logo-white.png'),
         'white-council' => asset('images/brand/logo-white-council.png'),
