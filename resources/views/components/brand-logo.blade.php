@@ -1,4 +1,4 @@
-@props(['variant' => 'color', 'class' => 'h-10 w-auto'])
+@props(['variant' => 'color', 'class' => 'h-2 w-auto'])
 
 @php
     $sources = [

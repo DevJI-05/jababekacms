@@ -26,7 +26,7 @@
 <header class="bg-white">
     <div class="mx-auto flex max-w-7xl items-center gap-4 px-4 py-3 md:gap-6 md:py-4">
         <a href="{{ route('home') }}" class="shrink-0 leading-tight">
-            <x-brand-logo variant="color" class="h-14 w-auto object-contain object-left md:h-20" />
+            <x-brand-logo variant="color" class="h-8 w-auto object-contain object-left sm:h-10 md:h-12" />
         </a>
 
         <div class="ml-auto hidden flex-1 items-center justify-end gap-3 md:flex">
