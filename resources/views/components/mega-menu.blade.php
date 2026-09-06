@@ -10,7 +10,7 @@
         <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" /></svg>
     </button>
 
-    <div class="mx-auto grid max-w-7xl grid-cols-1 gap-8 px-4 py-8 md:grid-cols-[minmax(0,1fr)_minmax(0,2fr)]">
+    <div class="mx-auto grid max-w-[90rem] grid-cols-1 gap-8 px-4 py-8 md:grid-cols-[minmax(0,1fr)_minmax(0,2fr)]">
         <div>
             <h2 class="text-xl font-bold text-primary">{{ $title }}</h2>
             <p class="mt-2 max-w-xs text-sm text-slate-600">{{ $description }}</p>
@@ -33,7 +33,7 @@
 
     @if (count($quickLinks) > 0)
         <div class="border-t border-slate-100 bg-surface px-4 py-4">
-            <div class="mx-auto flex max-w-7xl flex-wrap items-center gap-3">
+            <div class="mx-auto flex max-w-[90rem] flex-wrap items-center gap-3">
                 <span class="text-sm font-semibold text-primary">{{ __('Quick links') }}</span>
                 @foreach ($quickLinks as $link)
                     <x-pill-link :href="$link['href'] ?? '#'" class="!w-auto px-4 py-1.5 text-xs">

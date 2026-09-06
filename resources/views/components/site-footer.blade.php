@@ -3,7 +3,7 @@
 @endphp
 
 <footer class="bg-accent text-white">
-    <div class="mx-auto grid max-w-7xl grid-cols-1 gap-10 px-4 py-10 sm:grid-cols-2 lg:grid-cols-4">
+    <div class="mx-auto grid max-w-[90rem] grid-cols-1 gap-10 px-4 py-10 sm:grid-cols-2 lg:grid-cols-4">
         <div>
             <h3 class="mb-4 font-bold">{{ __('Quick Links') }}</h3>
             <ul class="space-y-2 text-sm">
@@ -94,7 +94,7 @@
     </div>
 
     <div class="border-t border-white/10">
-        <div class="mx-auto flex max-w-7xl flex-wrap items-center justify-center gap-x-2 gap-y-1 px-4 py-4 text-center text-xs text-white/70">
+        <div class="mx-auto flex max-w-[90rem] flex-wrap items-center justify-center gap-x-2 gap-y-1 px-4 py-4 text-center text-xs text-white/70">
             @foreach ($footer->legal_links ?? [] as $link)
                 <a href="{{ $link['url'] }}" class="hover:underline">{{ $link['label'] }}</a> |
             @endforeach
@@ -113,7 +113,7 @@
 </button>
 
 <div data-cookie-banner class="fixed inset-x-0 bottom-0 z-40 hidden border-t border-slate-200 bg-white px-4 py-3">
-    <div class="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-4">
+    <div class="mx-auto flex max-w-[90rem] flex-wrap items-center justify-between gap-4">
         <p class="text-xs text-slate-600">
             {{ __('We use cookies to improve your experience on our site and to analyse traffic. By continuing to browse or by clicking "Accept", you consent to the use of cookies.') }}
             {{ __('Learn more in our') }} <a href="#" class="underline">{{ __('Privacy Policy') }}</a>.

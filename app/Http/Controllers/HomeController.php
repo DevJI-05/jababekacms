@@ -5,6 +5,11 @@ namespace App\Http\Controllers;
 use App\Models\Article;
 use App\Models\CarouselSetting;
 use App\Models\HeroSlide;
+use App\Models\FutureDevelopment;
+use App\Models\HistoryEra;
+use App\Models\SubMenu;
+use App\Models\Tenant;
+use Illuminate\Support\Str;
 use Illuminate\View\View;
 
 class HomeController extends Controller
@@ -39,6 +44,60 @@ class HomeController extends Controller
             ->take(4)
             ->get();
 
+        $highlights = $news->take(2)->map(fn (Article $article) => [
+            'badge' => __('News'),
+            'date' => $article->published_at?->format('d M Y'),
+            'title' => $article->title,
+            'image' => $article->imageUrl(),
+            'href' => route('articles.show', $article->slug),
+            'cta' => __('Read More'),
+        ])->merge($events->take(2)->map(fn (Article $article) => [
+            'badge' => __('Event'),
+            'date' => $article->event_date?->format('d M Y'),
+            'title' => $article->title,
+            'image' => $article->imageUrl(),
+            'href' => route('articles.show', $article->slug),
+            'cta' => __('Register Now'),
+        ]))->values();
+
+        $activeTenants = Tenant::query()
+            ->where('is_active', true)
+            ->orderBy('sort_order')
+            ->orderBy('name')
+            ->get();
+
+        $anchorTenants = $activeTenants->where('is_anchor', true)->values();
+
+        $tenantCategories = $activeTenants->pluck('category')->filter()->unique()->values();
+
+        $tenantTabs = $tenantCategories->mapWithKeys(fn (string $category) => [
+            Str::slug($category) => [
+                'label' => $category,
+                'items' => $activeTenants
+                    ->where('is_anchor', false)
+                    ->where('category', $category)
+                    ->take(6)
+                    ->values(),
+            ],
+        ]);
+
+        $historyEras = HistoryEra::query()
+            ->where('is_active', true)
+            ->orderBy('sort_order')
+            ->with(['milestones' => fn ($query) => $query->where('is_active', true)->orderBy('sort_order')])
+            ->get();
+
+        $futureDevelopments = FutureDevelopment::query()
+            ->where('is_active', true)
+            ->orderBy('sort_order')
+            ->get();
+
+        $aboutSubMenu = SubMenu::query()
+            ->where('slug', 'about-kota-jababeka')
+            ->whereHas('menu', fn ($query) => $query->where('slug', 'city-life'))
+            ->where('is_active', true)
+            ->first();
+
         return view('pages.home', [
             'slides' => $slides,
             'carouselAutoplay' => $carouselSettings->autoplay,
@@ -46,6 +105,42 @@ class HomeController extends Controller
             'featuredEvent' => $events->first(),
             'compactEvents' => $events->slice(1),
             'news' => $news,
+            'highlights' => $highlights,
+            'aboutSubMenu' => $aboutSubMenu,
+            'aboutExcerpt' => $this->firstParagraph($aboutSubMenu?->description()),
+            'aboutImage' => $this->firstImage($aboutSubMenu?->description()),
+            'anchorTenants' => $anchorTenants,
+            'tenantTabs' => $tenantTabs,
+            'historyEras' => $historyEras,
+            'futureDevelopments' => $futureDevelopments,
         ]);
+    }
+
+    private function firstParagraph(?string $html): ?string
+    {
+        if (! $html) {
+            return null;
+        }
+
+        preg_match_all('/<p[^>]*>(.*?)<\/p>/is', $html, $matches);
+
+        foreach ($matches[1] ?? [] as $paragraph) {
+            $text = trim(html_entity_decode(strip_tags($paragraph), ENT_QUOTES, 'UTF-8'));
+
+            if ($text !== '') {
+                return $text;
+            }
+        }
+
+        return null;
+    }
+
+    private function firstImage(?string $html): ?string
+    {
+        if ($html && preg_match('/<img[^>]+src="([^"]+)"/i', $html, $match)) {
+            return $match[1];
+        }
+
+        return null;
     }
 }

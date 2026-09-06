@@ -18,7 +18,7 @@
                 <div class="absolute inset-0 bg-linear-to-t from-black/70 via-black/30 to-black/10"></div>
             </div>
 
-            <div class="relative z-10 mx-auto w-full max-w-7xl px-6 sm:px-12">
+            <div class="relative z-10 mx-auto w-full max-w-[90rem] px-6 sm:px-12">
                 <div class="max-w-xl text-white">
                     <h1 class="text-2xl font-bold leading-tight drop-shadow-sm sm:text-4xl md:text-5xl lg:text-6xl">{{ $slide['title'] }}</h1>
                     <p class="mt-4 text-base text-white/90 sm:text-lg md:text-xl">{{ $slide['description'] }}</p>

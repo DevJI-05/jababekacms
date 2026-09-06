@@ -6,7 +6,7 @@
     <x-page-hero :title="$title" :image="$image ?? null" />
 
     <section class="bg-surface py-10">
-        <div class="mx-auto max-w-7xl px-4">
+        <div class="mx-auto max-w-[90rem] px-4">
             <x-rich-content :content="$description" class="mb-8" />
 
             @if ($buttonUrl ?? null)

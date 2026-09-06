@@ -150,10 +150,11 @@ function initTabs() {
 
                 triggers.forEach((t) => {
                     const active = t === trigger;
-                    t.classList.toggle('bg-white', active);
-                    t.classList.toggle('text-[#0d3a63]', active);
-                    t.classList.toggle('bg-[#0d3a63]', !active);
-                    t.classList.toggle('text-white', !active);
+                    t.classList.toggle('bg-primary', active);
+                    t.classList.toggle('text-white', active);
+                    t.classList.toggle('shadow-sm', active);
+                    t.classList.toggle('bg-white', !active);
+                    t.classList.toggle('text-text-muted', !active);
                 });
 
                 panels.forEach((panel) => {
@@ -178,6 +179,40 @@ function initBackToTop() {
     toggleVisibility();
 }
 
+function initParallax() {
+    const layers = [...document.querySelectorAll('[data-parallax]')];
+    if (layers.length === 0) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    let ticking = false;
+
+    const update = () => {
+        const viewportHeight = window.innerHeight;
+
+        layers.forEach((layer) => {
+            const rect = layer.getBoundingClientRect();
+            if (rect.bottom < 0 || rect.top > viewportHeight) return;
+
+            const speed = Number(layer.dataset.parallaxSpeed) || 0.2;
+            const progress = (rect.top + rect.height / 2 - viewportHeight / 2) / viewportHeight;
+
+            layer.style.transform = `translate3d(0, ${(progress * speed * 100).toFixed(2)}px, 0)`;
+        });
+
+        ticking = false;
+    };
+
+    const onScroll = () => {
+        if (ticking) return;
+        ticking = true;
+        requestAnimationFrame(update);
+    };
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    update();
+}
+
 function initCookieBanner() {
     const banner = document.querySelector('[data-cookie-banner]');
     if (!banner) return;
@@ -197,6 +232,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initMobileMenu();
     initHeroCarousel();
     initTabs();
+    initParallax();
     initBackToTop();
     initCookieBanner();
 });

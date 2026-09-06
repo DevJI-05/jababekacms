@@ -26,5 +26,8 @@ class DatabaseSeeder extends Seeder
         $this->call(MenuSeeder::class);
         $this->call(ArticleSeeder::class);
         $this->call(HeroSlideSeeder::class);
+        $this->call(TenantSeeder::class);
+        $this->call(CompanyHistorySeeder::class);
+        $this->call(FutureDevelopmentSeeder::class);
     }
 }

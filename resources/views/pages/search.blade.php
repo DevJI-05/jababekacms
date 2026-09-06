@@ -6,7 +6,7 @@
     <x-page-hero :title="__('Search')" />
 
     <section class="bg-surface py-8">
-        <div class="mx-auto max-w-7xl px-4">
+        <div class="mx-auto max-w-[90rem] px-4">
             <div class="rounded border border-slate-200 bg-white p-4 sm:p-6">
                 <form action="{{ route('search') }}" method="GET" class="flex flex-col gap-4 sm:flex-row sm:items-end">
                     <div class="flex-1">
@@ -51,7 +51,7 @@
     </section>
 
     <section class="bg-surface pb-12">
-        <div class="mx-auto max-w-7xl px-4">
+        <div class="mx-auto max-w-[90rem] px-4">
             @if ($query === '')
                 <p class="text-slate-600">{{ __('Enter a search term above to get started.') }}</p>
             @elseif ($results->total() === 0)

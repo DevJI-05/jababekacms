@@ -1,0 +1,43 @@
+<?php
+
+namespace Database\Factories;
+
+use App\Models\Tenant;
+use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Str;
+
+/**
+ * @extends Factory<Tenant>
+ */
+class TenantFactory extends Factory
+{
+    /**
+     * Define the model's default state.
+     *
+     * @return array<string, mixed>
+     */
+    public function definition(): array
+    {
+        $name = fake()->unique()->company();
+
+        return [
+            'name' => $name,
+            'slug' => Str::slug($name),
+            'category' => fake()->randomElement(['Consumer Goods', 'Technology', 'Pharmacy', 'Warehouse', 'Chemical', 'Food', 'Automotive', 'Plastic', 'Textile']),
+            'logo' => null,
+            'description' => fake()->paragraph(),
+            'address' => fake()->address(),
+            'phone' => fake()->phoneNumber(),
+            'email' => fake()->companyEmail(),
+            'website' => fake()->url(),
+            'is_anchor' => false,
+            'sort_order' => 0,
+            'is_active' => true,
+        ];
+    }
+
+    public function anchor(): static
+    {
+        return $this->state(fn () => ['is_anchor' => true]);
+    }
+}

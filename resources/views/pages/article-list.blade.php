@@ -7,7 +7,7 @@
     <x-page-hero :title="$title" />
 
     <section class="bg-surface py-12">
-        <div class="mx-auto max-w-7xl px-4">
+        <div class="mx-auto max-w-[90rem] px-4">
             @if ($articles->isEmpty())
                 <p class="py-12 text-center text-slate-600">{{ __('Nothing to show here yet — check back soon.') }}</p>
             @else

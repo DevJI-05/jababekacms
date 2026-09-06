@@ -9,7 +9,7 @@
 @endphp
 
 <div class="bg-white text-brand-text">
-    <div class="mx-auto flex max-w-7xl items-center justify-end gap-2 px-4 py-1.5 text-xs sm:gap-4">
+    <div class="mx-auto flex max-w-[90rem] items-center justify-end gap-2 px-4 py-1.5 text-xs sm:gap-4">
         <a href="#" class="hidden hover:underline sm:inline">{{ __('Skip to content') }}</a>
         <span class="hidden text-neutral sm:inline">|</span>
         <a href="#" class="hidden hover:underline sm:inline">{{ __('Accessibility') }}</a>
@@ -24,7 +24,7 @@
 </div>
 
 <header class="bg-white">
-    <div class="mx-auto flex max-w-7xl items-center gap-4 px-4 py-3 md:gap-6 md:py-4">
+    <div class="mx-auto flex max-w-[90rem] items-center gap-4 px-4 py-3 md:gap-6 md:py-4">
         <a href="{{ route('home') }}" class="shrink-0 leading-tight">
             <x-brand-logo variant="color" class="h-8 w-auto object-contain object-left sm:h-10 md:h-12" />
         </a>
@@ -61,7 +61,7 @@
 </header>
 
 <nav class="relative hidden bg-white md:block" data-mega-nav>
-    <div class="mx-auto max-w-7xl px-4">
+    <div class="mx-auto max-w-[90rem] px-4">
         <ul class="flex items-center gap-8 text-sm font-semibold text-primary">
             @foreach ($menus as $menu)
                 <li class="relative">
@@ -153,7 +153,7 @@
 
 @if (count($breadcrumbs) > 0)
     <div class="border-b border-slate-100 bg-white py-2 text-center text-xs text-slate-500">
-        <div class="mx-auto max-w-7xl px-4">
+        <div class="mx-auto max-w-[90rem] px-4">
             @foreach ($breadcrumbs as $label => $url)
                 @if (! $loop->last)
                     <a href="{{ $url }}" class="hover:underline">{{ $label }}</a>

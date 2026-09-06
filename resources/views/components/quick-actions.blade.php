@@ -1,15 +1,15 @@
 @props(['tabs' => []])
 
 <div class="relative z-20 mx-auto mt-6 max-w-4xl px-4 md:-mt-20" data-tabs>
-    <div class="flex">
+    <div class="flex flex-wrap gap-2">
         @foreach ($tabs as $key => $tab)
             <button
                 type="button"
                 data-tab-trigger="{{ $key }}"
                 @class([
-                    'rounded-t-lg px-6 py-3 text-sm font-semibold transition-colors',
-                    'bg-white text-primary' => $loop->first,
-                    'bg-primary text-white hover:bg-primary-light' => ! $loop->first,
+                    'rounded-lg px-6 py-3 text-sm font-semibold transition-colors',
+                    'bg-primary text-white shadow-sm' => $loop->first,
+                    'bg-white text-text-muted hover:bg-surface-mint hover:text-primary' => ! $loop->first,
                 ])
             >
                 {{ $tab['label'] }}
@@ -17,7 +17,7 @@
         @endforeach
     </div>
 
-    <div class="rounded-b-lg rounded-tr-lg bg-white p-4 shadow-lg sm:p-6">
+    <div class="mt-3 rounded-lg bg-white p-4 shadow-lg sm:p-6">
         @foreach ($tabs as $key => $tab)
             <div data-tab-panel="{{ $key }}" @class(['grid grid-cols-1 gap-x-6 gap-y-5 sm:grid-cols-2 md:grid-cols-3', 'hidden' => ! $loop->first])>
                 @foreach ($tab['items'] as $item)

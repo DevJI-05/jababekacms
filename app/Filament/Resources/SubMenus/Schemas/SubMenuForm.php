@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\SubMenus\Schemas;
 
+use App\Filament\Forms\Components\IconPicker;
 use App\Models\Menu;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Select;
@@ -47,9 +48,9 @@ class SubMenuForm
                     )
                     ->columnSpanFull(),
 
-                TextInput::make('icon')
-                    ->helperText('Optional Heroicon name, e.g. heroicon-o-home.')
-                    ->maxLength(255)
+                IconPicker::make('icon')
+                    ->label('Icon')
+                    ->helperText('Optional — shown next to this sub menu in the navigation.')
                     ->columnSpanFull(),
 
                 RichEditor::make('description_en')

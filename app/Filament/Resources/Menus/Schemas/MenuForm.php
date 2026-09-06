@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Menus\Schemas;
 
+use App\Filament\Forms\Components\IconPicker;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
@@ -43,9 +44,9 @@ class MenuForm
                     ->helperText('Used in the front-end URL, e.g. /menu-slug.')
                     ->columnSpanFull(),
 
-                TextInput::make('icon')
-                    ->helperText('Optional Heroicon name, e.g. heroicon-o-building-office-2.')
-                    ->maxLength(255)
+                IconPicker::make('icon')
+                    ->label('Icon')
+                    ->helperText('Optional — shown next to this menu in the navigation.')
                     ->columnSpanFull(),
 
                 Textarea::make('description_en')
