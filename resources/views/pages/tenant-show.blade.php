@@ -1,4 +1,9 @@
-<x-layouts.app :title="$tenant->name.' - '.config('app.name')" active-nav="">
+<x-layouts.app
+    :title="$tenant->name.' - '.config('app.name')"
+    :description="\Illuminate\Support\Str::limit(strip_tags($tenant->description ?? ''), 160) ?: __(':name is one of the tenants operating within Kota Jababeka\'s integrated industrial estate.', ['name' => $tenant->name])"
+    :image="$tenant->logoUrl()"
+    active-nav=""
+>
     <x-page-hero :title="$tenant->name" />
 
     <section class="bg-white py-12">

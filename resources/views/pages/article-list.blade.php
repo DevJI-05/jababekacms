@@ -3,7 +3,12 @@
     $newsGradients = ['from-slate-300 via-slate-200 to-slate-400', 'from-orange-200 via-amber-100 to-orange-300', 'from-slate-200 via-slate-100 to-slate-300', 'from-emerald-200 via-lime-100 to-emerald-300'];
 @endphp
 
-<x-layouts.app :title="$title.' - '.config('app.name')" :active-nav="$activeNav ?? ''" :breadcrumbs="$breadcrumbs ?? []">
+<x-layouts.app
+    :title="$title.' - '.config('app.name')"
+    :description="__(':title from Kota Jababeka — stay up to date with the latest happenings across the city.', ['title' => $title])"
+    :active-nav="$activeNav ?? ''"
+    :breadcrumbs="$breadcrumbs ?? []"
+>
     <x-page-hero :title="$title" />
 
     <section class="bg-surface py-12">

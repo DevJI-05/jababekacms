@@ -6,7 +6,10 @@
     ];
 @endphp
 
-<x-layouts.app :title="__('Carbon and Impact Tracker') . ' - ' . config('app.name')">
+<x-layouts.app
+    :title="__('Carbon and Impact Tracker') . ' - ' . config('app.name')"
+    :description="__('Track and understand the carbon footprint and environmental impact of activities across Kota Jababeka.')"
+>
     <section class="mx-auto max-w-3xl px-4 py-16 text-center">
         <h1 class="text-2xl font-bold text-accent sm:text-3xl">{{ __('Carbon and Impact Tracker') }}</h1>
         <p class="mt-6 text-brand-text">

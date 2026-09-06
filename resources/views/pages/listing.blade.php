@@ -2,7 +2,13 @@
     /** @var \Illuminate\Support\Collection $items */
 @endphp
 
-<x-layouts.app :title="$title.' - '.config('app.name')" :active-nav="$activeNav ?? ''" :breadcrumbs="$breadcrumbs ?? []">
+<x-layouts.app
+    :title="$title.' - '.config('app.name')"
+    :description="\Illuminate\Support\Str::limit(strip_tags($description ?? ''), 160) ?: null"
+    :image="$image ?? null"
+    :active-nav="$activeNav ?? ''"
+    :breadcrumbs="$breadcrumbs ?? []"
+>
     <x-page-hero :title="$title" :image="$image ?? null" />
 
     <section class="bg-surface py-10">

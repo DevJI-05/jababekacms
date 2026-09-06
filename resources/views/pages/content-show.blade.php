@@ -1,4 +1,10 @@
-<x-layouts.app :title="$content->title.' - '.config('app.name')" :active-nav="$activeNav ?? ''" :breadcrumbs="$breadcrumbs ?? []">
+<x-layouts.app
+    :title="$content->title.' - '.config('app.name')"
+    :description="\Illuminate\Support\Str::limit(strip_tags($content->description() ?? $content->body ?? ''), 160)"
+    :image="$content->imageUrl()"
+    :active-nav="$activeNav ?? ''"
+    :breadcrumbs="$breadcrumbs ?? []"
+>
     <x-page-hero :title="$content->title" :image="$content->imageUrl()" />
 
     <section class="bg-white py-12">

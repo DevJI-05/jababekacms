@@ -39,7 +39,11 @@
     $footer = \App\Models\FooterSetting::current();
 @endphp
 
-<x-layouts.app :title="config('app.name')" active-nav="">
+<x-layouts.app
+    :title="config('app.name').' - Integrated Industrial Estate & Township'"
+    :description="__('Kota Jababeka is Indonesia\'s first integrated industrial estate and township in Cikarang, home to 2,000+ tenants, industrial estates, education, and a growing Net Zero Industrial Ecosystem.')"
+    active-nav=""
+>
     {{-- 01. HERO — real hero slides from HeroSlide, autoplay driven by CarouselSetting --}}
     @if ($slides->isNotEmpty())
         <x-hero-carousel :slides="$slides" :autoplay="$carouselAutoplay" :interval="$carouselIntervalMs" />

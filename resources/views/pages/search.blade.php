@@ -2,7 +2,11 @@
     /** @var \Illuminate\Contracts\Pagination\LengthAwarePaginator $results */
 @endphp
 
-<x-layouts.app :title="$title.' - '.config('app.name')">
+<x-layouts.app
+    :title="$title.' - '.config('app.name')"
+    :description="__('Search across Kota Jababeka for pages, news, events, and information.')"
+    robots="noindex, follow"
+>
     <x-page-hero :title="__('Search')" />
 
     <section class="bg-surface py-8">

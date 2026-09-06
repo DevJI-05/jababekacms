@@ -1,4 +1,8 @@
-<x-layouts.app :title="__('Our Tenants').' - '.config('app.name')" active-nav="">
+<x-layouts.app
+    :title="__('Our Tenants').' - '.config('app.name')"
+    :description="__('Explore anchor tenants and the 2,000+ companies operating across Kota Jababeka\'s industrial estates and business parks.')"
+    active-nav=""
+>
     <x-page-hero :title="__('Our Tenants')" />
 
     <section class="bg-surface py-12">
