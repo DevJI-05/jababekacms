@@ -132,8 +132,11 @@
                                             </div>
 
                                             <div class="h-32 w-full">
-                                                @if ($milestone->imageUrl())
-                                                    <img src="{{ $milestone->imageUrl() }}" alt="{{ $milestone->title() }}" class="size-full object-cover">
+                                                @php $primaryMedia = $milestone->primaryMedia(); @endphp
+                                                @if ($primaryMedia && $primaryMedia['type'] === 'video')
+                                                    <video src="{{ $primaryMedia['url'] }}" class="size-full object-cover" muted loop playsinline autoplay></video>
+                                                @elseif ($primaryMedia)
+                                                    <img src="{{ $primaryMedia['url'] }}" alt="{{ $milestone->title() }}" class="size-full object-cover">
                                                 @else
                                                     <x-dummy-placeholder :label="$milestone->year" class="size-full" />
                                                 @endif

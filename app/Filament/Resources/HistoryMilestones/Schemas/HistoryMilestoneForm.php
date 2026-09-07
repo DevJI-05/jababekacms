@@ -52,12 +52,17 @@ class HistoryMilestoneForm
                     ->helperText('Optional — falls back to the English description if left empty.')
                     ->columnSpanFull(),
 
-                FileUpload::make('image')
-                    ->label('Photo')
-                    ->image()
+                FileUpload::make('media')
+                    ->label('Photos & Videos')
                     ->disk('public')
                     ->directory('history-milestones')
-                    ->imageEditor()
+                    ->multiple()
+                    ->reorderable()
+                    ->appendFiles()
+                    ->panelLayout('grid')
+                    ->acceptedFileTypes(['image/*', 'video/*'])
+                    ->openable()
+                    ->downloadable()
                     ->columnSpanFull(),
 
                 Toggle::make('is_active')

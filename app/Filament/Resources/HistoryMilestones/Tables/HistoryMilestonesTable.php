@@ -14,9 +14,12 @@ class HistoryMilestonesTable
     {
         return $table
             ->columns([
-                ImageColumn::make('image')
-                    ->label('Photo')
+                ImageColumn::make('media')
+                    ->label('Media')
                     ->disk('public')
+                    ->stacked()
+                    ->limit(3)
+                    ->limitedRemainingText()
                     ->square(),
 
                 TextColumn::make('year')

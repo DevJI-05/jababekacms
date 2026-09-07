@@ -25,7 +25,7 @@ class HistoryMilestoneFactory extends Factory
             'title_id' => null,
             'description_en' => fake()->paragraph(),
             'description_id' => null,
-            'image' => null,
+            'media' => null,
             'sort_order' => 0,
             'is_active' => true,
         ];
