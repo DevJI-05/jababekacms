@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Article;
 use App\Models\CarouselSetting;
-use App\Models\HeroSlide;
 use App\Models\FutureDevelopment;
+use App\Models\HeroSlide;
 use App\Models\HistoryEra;
 use App\Models\SubMenu;
 use App\Models\Tenant;
@@ -73,6 +73,11 @@ class HomeController extends Controller
         $tenantTabs = $tenantCategories->mapWithKeys(fn (string $category) => [
             Str::slug($category) => [
                 'label' => $category,
+                'anchorItems' => $activeTenants
+                    ->where('is_anchor', true)
+                    ->where('category', $category)
+                    ->take(6)
+                    ->values(),
                 'items' => $activeTenants
                     ->where('is_anchor', false)
                     ->where('category', $category)

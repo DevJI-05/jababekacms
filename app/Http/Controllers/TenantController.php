@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Tenant;
-use Illuminate\Support\Str;
 use Illuminate\View\View;
 
 class TenantController extends Controller
@@ -18,27 +17,12 @@ class TenantController extends Controller
 
         $anchorTenants = $tenants->where('is_anchor', true)->values();
 
-        $otherTenants = $tenants->where('is_anchor', false)->values();
-
-        $categories = $otherTenants->pluck('category')->filter()->unique()->sort()->values();
-
-        $tenantTabs = collect([
-            'all' => [
-                'label' => __('All'),
-                'groups' => $otherTenants->groupBy(fn (Tenant $tenant) => $tenant->category ?: __('Other')),
-            ],
-        ])->merge(
-            $categories->mapWithKeys(fn (string $category) => [
-                Str::slug($category) => [
-                    'label' => $category,
-                    'groups' => collect([$category => $otherTenants->where('category', $category)->values()]),
-                ],
-            ]),
-        );
+        $otherTenants = $tenants->where('is_anchor', false)
+            ->groupBy(fn (Tenant $tenant) => $tenant->category ?: __('Other'));
 
         return view('pages.tenants', [
             'anchorTenants' => $anchorTenants,
-            'tenantTabs' => $tenantTabs,
+            'otherTenants' => $otherTenants,
         ]);
     }
 

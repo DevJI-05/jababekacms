@@ -301,30 +301,30 @@
                         @endforeach
                     </div>
 
-                    @if ($anchorTenants->isNotEmpty())
-                        <div class="mt-8 rounded-lg border border-slate-200 p-4 sm:p-6">
-                            <p class="text-xs font-bold uppercase tracking-widest text-primary">{{ __('Anchor Tenants') }}</p>
-
-                            <div class="mt-4 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-6">
-                                @foreach ($anchorTenants as $tenant)
-                                    <a href="{{ $tenant->slug ? route('tenants.show', $tenant->slug) : '#' }}" class="flex h-20 items-center justify-center rounded border border-slate-200 bg-surface-mint px-4 transition-shadow hover:shadow-md">
-                                        <img src="{{ $tenant->logoUrl() }}" alt="{{ $tenant->name }}" class="max-h-10 max-w-full object-contain" title="{{ $tenant->name }}">
-                                    </a>
-                                @endforeach
-                            </div>
-                        </div>
-                    @endif
-
                     <div class="mt-8">
                         @foreach ($tenantTabs as $key => $tab)
                             <div data-tab-panel="{{ $key }}" @class(['hidden' => ! $loop->first])>
+                                @if ($tab['anchorItems']->isNotEmpty())
+                                    <div class="rounded-lg border border-slate-200 p-4 sm:p-6">
+                                        <p class="text-xs font-bold uppercase tracking-widest text-primary">{{ __('Anchor Tenants') }}</p>
+
+                                        <div class="mt-4 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-6">
+                                            @foreach ($tab['anchorItems'] as $tenant)
+                                                <a href="{{ $tenant->slug ? route('tenants.show', $tenant->slug) : '#' }}" class="flex h-20 items-center justify-center rounded border border-slate-200 bg-surface-mint px-4 transition-shadow hover:shadow-md">
+                                                    <img src="{{ $tenant->logoUrl() }}" alt="{{ $tenant->name }}" class="max-h-10 max-w-full object-contain" title="{{ $tenant->name }}">
+                                                </a>
+                                            @endforeach
+                                        </div>
+                                    </div>
+                                @endif
+
                                 @if ($tab['items']->isNotEmpty())
-                                    <div class="grid grid-cols-1 gap-x-8 gap-y-2 sm:grid-cols-2 lg:grid-cols-3">
+                                    <div @class(['mt-8' => $tab['anchorItems']->isNotEmpty(), 'grid grid-cols-1 gap-x-8 gap-y-2 sm:grid-cols-2 lg:grid-cols-3' => true])>
                                         @foreach ($tab['items'] as $tenant)
                                             <a href="{{ $tenant->slug ? route('tenants.show', $tenant->slug) : '#' }}" class="text-sm text-text-muted hover:text-accent">{{ $tenant->name }}</a>
                                         @endforeach
                                     </div>
-                                @else
+                                @elseif ($tab['anchorItems']->isEmpty())
                                     <p class="text-center text-sm text-text-muted">{{ __('No tenants listed yet in this category.') }}</p>
                                 @endif
                             </div>
