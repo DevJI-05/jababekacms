@@ -52,6 +52,29 @@ class AnchorTenantForm
                         'Automotive' => 'Automotive',
                         'Plastic' => 'Plastic',
                         'Textile' => 'Textile',
+                        'Otomotif' => 'Otomotif',
+                        'Plastik' => 'Plastik',
+                        'Tekstil' => 'Tekstil',
+                        'Elektronik' => 'Elektronik',
+                        'Kimia' => 'Kimia',
+                        'Makanan' => 'Makanan',
+                        'FMCG' => 'FMCG',
+                        'Farmasi' => 'Farmasi',
+                        'Gudang' => 'Gudang',
+                        'Jasa' => 'Jasa',
+                        'Mesin' => 'Mesin',
+                        'Baja/Logam' => 'Baja/Logam',
+                        'Metal Fabrication' => 'Metal Fabrication',
+                        'Packaging' => 'Packaging',
+                        'Trading' => 'Trading',
+                        'Material Bangunan' => 'Material Bangunan',
+                        'Pertanian' => 'Pertanian',
+                        'Listrik' => 'Listrik',
+                        'Komersil' => 'Komersil',
+                        'Kosmetik' => 'Kosmetik',
+                        'Migas' => 'Migas',
+                        'Konstruksi' => 'Konstruksi',
+                        'Others' => 'Others',
                     ])
                     ->searchable()
                     ->createOptionForm([
@@ -77,13 +100,36 @@ class AnchorTenantForm
                     ->rows(2)
                     ->columnSpanFull(),
 
-                TextInput::make('phone')
-                    ->tel()
+                TextInput::make('estate')
+                    ->label('Kawasan')
                     ->maxLength(255),
 
-                TextInput::make('email')
-                    ->email()
+                TextInput::make('land_area')
+                    ->label('Land area')
+                    ->numeric()
+                    ->suffix('m²'),
+
+                Select::make('building_type')
+                    ->options([
+                        'Kavling' => 'Kavling',
+                        'TOB' => 'TOB',
+                        'SFB' => 'SFB',
+                        'SIB' => 'SIB',
+                    ])
+                    ->searchable()
+                    ->createOptionForm([
+                        TextInput::make('value')->required(),
+                    ])
+                    ->createOptionUsing(fn (array $data) => $data['value']),
+
+                TextInput::make('investment_country')
+                    ->label('Investment country')
                     ->maxLength(255),
+
+                Textarea::make('industry_type')
+                    ->label('Industry type')
+                    ->rows(2)
+                    ->columnSpanFull(),
 
                 TextInput::make('website')
                     ->url()

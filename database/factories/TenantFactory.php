@@ -27,8 +27,6 @@ class TenantFactory extends Factory
             'logo' => null,
             'description' => fake()->paragraph(),
             'address' => fake()->address(),
-            'phone' => fake()->phoneNumber(),
-            'email' => fake()->companyEmail(),
             'website' => fake()->url(),
             'is_anchor' => false,
             'sort_order' => 0,

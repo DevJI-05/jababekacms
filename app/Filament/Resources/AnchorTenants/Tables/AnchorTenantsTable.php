@@ -28,6 +28,24 @@ class AnchorTenantsTable
                     ->placeholder('—')
                     ->sortable(),
 
+                TextColumn::make('estate')
+                    ->label('Kawasan')
+                    ->placeholder('—')
+                    ->toggleable(),
+
+                TextColumn::make('land_area')
+                    ->label('Land area')
+                    ->numeric()
+                    ->suffix(' m²')
+                    ->placeholder('—')
+                    ->toggleable()
+                    ->sortable(),
+
+                TextColumn::make('investment_country')
+                    ->label('Country')
+                    ->placeholder('—')
+                    ->toggleable(),
+
                 IconColumn::make('is_active')
                     ->label('Active')
                     ->boolean(),

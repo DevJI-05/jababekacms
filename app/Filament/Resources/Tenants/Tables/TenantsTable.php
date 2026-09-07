@@ -21,11 +21,21 @@ class TenantsTable
                     ->placeholder('—')
                     ->sortable(),
 
-                TextColumn::make('phone')
+                TextColumn::make('estate')
+                    ->label('Kawasan')
                     ->placeholder('—')
                     ->toggleable(),
 
-                TextColumn::make('email')
+                TextColumn::make('land_area')
+                    ->label('Land area')
+                    ->numeric()
+                    ->suffix(' m²')
+                    ->placeholder('—')
+                    ->toggleable()
+                    ->sortable(),
+
+                TextColumn::make('investment_country')
+                    ->label('Country')
                     ->placeholder('—')
                     ->toggleable(),
 

@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
 
-#[Fillable(['name', 'slug', 'category', 'logo', 'description', 'address', 'phone', 'email', 'website', 'is_anchor', 'sort_order', 'is_active'])]
+#[Fillable(['name', 'slug', 'category', 'land_area', 'logo', 'description', 'address', 'estate', 'industry_type', 'investment_country', 'building_type', 'website', 'is_anchor', 'sort_order', 'is_active'])]
 class Tenant extends Model
 {
     /** @use HasFactory<TenantFactory> */
@@ -28,6 +28,7 @@ class Tenant extends Model
             'is_anchor' => 'boolean',
             'is_active' => 'boolean',
             'sort_order' => 'integer',
+            'land_area' => 'decimal:2',
         ];
     }
 }
