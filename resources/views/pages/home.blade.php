@@ -196,47 +196,49 @@
 
     <div
         data-milestone-lightbox
-        class="fixed inset-0 z-50 hidden bg-black"
+        class="fixed inset-0 z-50 hidden items-center justify-center bg-brand-text/70 p-4"
         role="dialog"
         aria-modal="true"
         aria-label="{{ __('Milestone photo') }}"
     >
-        <button
-            type="button"
-            data-milestone-lightbox-close
-            class="absolute right-4 top-4 z-10 flex size-10 items-center justify-center rounded-full bg-white/10 text-white transition hover:bg-white/20 sm:right-6 sm:top-6"
-            aria-label="{{ __('Close') }}"
-        >
-            <svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
-            </svg>
-        </button>
+        <div class="relative w-full max-w-2xl overflow-hidden rounded-2xl bg-white shadow-2xl">
+            <button
+                type="button"
+                data-milestone-lightbox-close
+                class="absolute right-4 top-4 z-10 flex size-9 items-center justify-center rounded-full bg-white text-brand-text shadow-md transition hover:bg-surface-mint"
+                aria-label="{{ __('Close') }}"
+            >
+                <svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+                </svg>
+            </button>
 
-        <button
-            type="button"
-            data-milestone-lightbox-prev
-            class="absolute left-3 top-1/2 z-10 flex size-11 -translate-y-1/2 items-center justify-center rounded-full bg-white/10 text-white transition hover:bg-white/20 sm:left-6 sm:size-12"
-            aria-label="{{ __('Previous photo') }}"
-        >
-            <svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" /></svg>
-        </button>
-        <button
-            type="button"
-            data-milestone-lightbox-next
-            class="absolute right-3 top-1/2 z-10 flex size-11 -translate-y-1/2 items-center justify-center rounded-full bg-white/10 text-white transition hover:bg-white/20 sm:right-6 sm:size-12"
-            aria-label="{{ __('Next photo') }}"
-        >
-            <svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" /></svg>
-        </button>
+            <button
+                type="button"
+                data-milestone-lightbox-prev
+                class="absolute left-3 top-32 z-10 hidden size-9 flex items-center justify-center rounded-full bg-white text-brand-text shadow-md transition hover:bg-surface-mint sm:top-40"
+                aria-label="{{ __('Previous photo') }}"
+            >
+                <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" /></svg>
+            </button>
+            <button
+                type="button"
+                data-milestone-lightbox-next
+                class="absolute right-3 top-32 z-10 hidden size-9 flex items-center justify-center rounded-full bg-white text-brand-text shadow-md transition hover:bg-surface-mint sm:top-40"
+                aria-label="{{ __('Next photo') }}"
+            >
+                <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" /></svg>
+            </button>
 
-        <div class="size-full overflow-hidden">
-            <div data-milestone-lightbox-track class="flex size-full transition-transform duration-300 ease-out"></div>
-        </div>
+            <div class="h-64 w-full overflow-hidden bg-surface-mint sm:h-80">
+                <div data-milestone-lightbox-track class="flex size-full transition-transform duration-300 ease-out"></div>
+            </div>
 
-        <div class="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/95 via-black/70 to-transparent px-5 pb-6 pt-20 sm:px-10 sm:pb-10 sm:pt-32">
-            <p data-milestone-lightbox-year class="text-3xl font-extrabold tracking-tight text-primary sm:text-5xl"></p>
-            <p data-milestone-lightbox-title class="mt-1 text-base font-bold text-white sm:text-xl"></p>
-            <p data-milestone-lightbox-description class="mt-2 max-w-3xl text-sm leading-relaxed text-white/80 sm:text-base"></p>
+            <div class="p-6">
+                <p data-milestone-lightbox-year class="text-sm font-extrabold uppercase tracking-wide text-primary"></p>
+                <p data-milestone-lightbox-title class="mt-1 text-xl font-extrabold text-brand-text"></p>
+                <p data-milestone-lightbox-description class="mt-2 text-sm leading-relaxed text-text-muted"></p>
+            </div>
         </div>
     </div>
 
