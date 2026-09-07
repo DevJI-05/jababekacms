@@ -22,18 +22,48 @@
             @endif
 
             <div class="mt-10">
-                @forelse ($otherTenants as $category => $categoryTenants)
-                    <div class="mb-10">
-                        <h2 class="text-lg font-extrabold text-brand-text">{{ $category }}</h2>
-                        <div class="mt-4 grid grid-cols-1 gap-x-8 gap-y-2 rounded-lg border border-slate-200 bg-white p-4 sm:grid-cols-2 sm:p-6 lg:grid-cols-3">
-                            @foreach ($categoryTenants as $tenant)
-                                <a href="{{ $tenant->slug ? route('tenants.show', $tenant->slug) : '#' }}" class="text-sm text-text-muted hover:text-accent">{{ $tenant->name }}</a>
+                @if ($tenantTabs->isNotEmpty())
+                    <div data-tabs>
+                        <div class="flex flex-wrap gap-2">
+                            @foreach ($tenantTabs as $key => $tab)
+                                <button
+                                    type="button"
+                                    data-tab-trigger="{{ $key }}"
+                                    @class([
+                                        'rounded px-4 py-1.5 text-sm font-semibold transition-colors',
+                                        'bg-primary text-white shadow-sm' => $loop->first,
+                                        'bg-white text-text-muted hover:bg-surface-mint hover:text-primary' => ! $loop->first,
+                                    ])
+                                >
+                                    {{ $tab['label'] }}
+                                </button>
+                            @endforeach
+                        </div>
+
+                        <div class="mt-6">
+                            @foreach ($tenantTabs as $key => $tab)
+                                <div data-tab-panel="{{ $key }}" @class(['hidden' => ! $loop->first])>
+                                    @forelse ($tab['groups'] as $category => $categoryTenants)
+                                        <div class="mb-10">
+                                            @if ($key === 'all')
+                                                <h2 class="text-lg font-extrabold text-brand-text">{{ $category }}</h2>
+                                            @endif
+                                            <div class="mt-4 grid grid-cols-1 gap-x-8 gap-y-2 rounded-lg border border-slate-200 bg-white p-4 sm:grid-cols-2 sm:p-6 lg:grid-cols-3">
+                                                @foreach ($categoryTenants as $tenant)
+                                                    <a href="{{ $tenant->slug ? route('tenants.show', $tenant->slug) : '#' }}" class="text-sm text-text-muted hover:text-accent">{{ $tenant->name }}</a>
+                                                @endforeach
+                                            </div>
+                                        </div>
+                                    @empty
+                                        <p class="py-12 text-center text-slate-600">{{ __('No tenants listed yet in this category.') }}</p>
+                                    @endforelse
+                                </div>
                             @endforeach
                         </div>
                     </div>
-                @empty
+                @else
                     <p class="py-12 text-center text-slate-600">{{ __('No tenants listed yet — check back soon.') }}</p>
-                @endforelse
+                @endif
             </div>
         </div>
     </section>
