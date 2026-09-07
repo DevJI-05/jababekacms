@@ -113,78 +113,75 @@
             @php $lightboxSlides = []; @endphp
 
             @if ($historyEras->isNotEmpty())
-                <div class="mt-10 flex flex-col gap-12">
-                    @foreach ($historyEras as $era)
-                        <div>
-                            <div class="flex flex-wrap items-center gap-3">
-                                <span class="rounded-full bg-primary px-3 py-1 text-[10px] font-extrabold uppercase tracking-widest text-white">{{ __('Era') }}</span>
-                                <div class="rounded-lg bg-surface-mint px-6 py-3">
-                                    @if ($era->year_range)
-                                        <p class="text-xs font-bold uppercase tracking-widest text-primary">{{ $era->year_range }}</p>
+                <div class="relative mt-10">
+                    <div
+                        class="flex snap-x snap-mandatory gap-6 overflow-x-auto pb-6 pl-1 pr-6 pt-12 scrollbar-thin [scrollbar-color:var(--color-primary)_var(--color-surface-mint)]"
+                        data-era-scroll
+                    >
+                        @foreach ($historyEras as $era)
+                            @continue($era->milestones->isEmpty())
+
+                            @foreach ($era->milestones as $milestone)
+                                <div class="relative flex w-64 shrink-0 snap-start flex-col sm:w-72">
+                                    @if ($loop->first)
+                                        <div class="absolute -top-9 left-0 z-10 flex w-max flex-nowrap items-center gap-2 whitespace-nowrap">
+                                            <span class="shrink-0 rounded-full bg-primary px-2.5 py-1 text-[10px] font-extrabold uppercase tracking-widest text-white">{{ __('Era') }}</span>
+                                            @if ($era->year_range)
+                                                <span class="shrink-0 text-xs font-bold uppercase tracking-widest text-primary">{{ $era->year_range }}</span>
+                                            @endif
+                                            <span class="shrink-0 text-sm font-extrabold uppercase tracking-wide text-brand-text">{{ $era->label() }}</span>
+                                        </div>
                                     @endif
-                                    <p class="text-lg font-extrabold uppercase tracking-wide text-brand-text">{{ $era->label() }}</p>
-                                </div>
-                            </div>
 
-                            @if ($era->milestones->isNotEmpty())
-                                <div class="relative mt-6">
-                                    <div
-                                        class="flex snap-x snap-mandatory gap-6 overflow-x-auto pb-6 pl-1 pr-6 scrollbar-thin [scrollbar-color:var(--color-primary)_var(--color-surface-mint)]"
-                                        data-era-scroll
-                                    >
-                                        @foreach ($era->milestones as $milestone)
-                                            <div class="flex w-64 shrink-0 snap-start flex-col sm:w-72">
-                                                <div class="h-36 w-full overflow-hidden rounded-t-lg sm:h-40">
-                                                    @php
-                                                        $primaryMedia = $milestone->primaryMedia();
-                                                        $milestoneStartIndex = count($lightboxSlides);
-                                                        foreach ($milestone->mediaItems() as $mediaItem) {
-                                                            $lightboxSlides[] = array_merge($mediaItem, [
-                                                                'year' => $milestone->year,
-                                                                'title' => $milestone->title(),
-                                                                'description' => $milestone->description(),
-                                                            ]);
-                                                        }
-                                                    @endphp
-                                                    @if ($primaryMedia && $primaryMedia['type'] === 'video')
-                                                        <video src="{{ $primaryMedia['url'] }}" class="size-full object-cover" muted loop playsinline autoplay></video>
-                                                    @elseif ($primaryMedia)
-                                                        <button
-                                                            type="button"
-                                                            class="group relative size-full cursor-zoom-in overflow-hidden"
-                                                            data-milestone-trigger
-                                                            data-start-index="{{ $milestoneStartIndex }}"
-                                                        >
-                                                            <img src="{{ $primaryMedia['thumbUrl'] }}" alt="{{ $milestone->title() }}" class="size-full object-cover transition duration-300 group-hover:scale-105" loading="lazy">
-                                                            <span class="absolute inset-0 flex items-center justify-center bg-black/0 opacity-0 transition group-hover:bg-black/30 group-hover:opacity-100">
-                                                                <svg class="size-6 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M8 3.75H5.25a1.5 1.5 0 0 0-1.5 1.5V8m12-4.25h2.75a1.5 1.5 0 0 1 1.5 1.5V8m0 8v2.75a1.5 1.5 0 0 1-1.5 1.5H16m-8 0H5.25a1.5 1.5 0 0 1-1.5-1.5V16" />
-                                                                </svg>
-                                                            </span>
-                                                        </button>
-                                                    @else
-                                                        <x-dummy-placeholder :label="$milestone->year" class="size-full" />
-                                                    @endif
-                                                </div>
-
-                                                <div class="flex-1 rounded-b-lg border border-t-0 border-slate-200 bg-white p-4">
-                                                    <p class="text-xs font-bold uppercase tracking-wide text-primary">{{ $milestone->year }}</p>
-                                                    <p class="mt-1 text-sm font-bold text-brand-text">{{ $milestone->title() }}</p>
-                                                    <p class="mt-2 text-xs leading-relaxed text-text-muted">{{ $milestone->description() }}</p>
-                                                </div>
-
-                                                <div class="mt-4 flex items-center gap-2">
-                                                    <span class="size-3 shrink-0 rounded-full border-2 border-primary bg-white"></span>
-                                                    <span class="h-px flex-1 bg-surface"></span>
-                                                </div>
-                                                <p class="mt-2 text-center text-xs font-extrabold text-brand-text">{{ $milestone->year }}</p>
-                                            </div>
-                                        @endforeach
+                                    <div class="h-36 w-full overflow-hidden rounded-t-lg sm:h-40">
+                                        @php
+                                            $primaryMedia = $milestone->primaryMedia();
+                                            $milestoneStartIndex = count($lightboxSlides);
+                                            foreach ($milestone->mediaItems() as $mediaItem) {
+                                                $lightboxSlides[] = array_merge($mediaItem, [
+                                                    'year' => $milestone->year,
+                                                    'title' => $milestone->title(),
+                                                    'description' => $milestone->description(),
+                                                ]);
+                                            }
+                                        @endphp
+                                        @if ($primaryMedia && $primaryMedia['type'] === 'video')
+                                            <video src="{{ $primaryMedia['url'] }}" class="size-full object-cover" muted loop playsinline autoplay></video>
+                                        @elseif ($primaryMedia)
+                                            <button
+                                                type="button"
+                                                class="group relative size-full cursor-zoom-in overflow-hidden"
+                                                data-milestone-trigger
+                                                data-start-index="{{ $milestoneStartIndex }}"
+                                            >
+                                                <img src="{{ $primaryMedia['thumbUrl'] }}" alt="{{ $milestone->title() }}" class="size-full object-cover transition duration-300 group-hover:scale-105" loading="lazy">
+                                                <span class="absolute inset-0 flex items-center justify-center bg-black/0 opacity-0 transition group-hover:bg-black/30 group-hover:opacity-100">
+                                                    <svg class="size-6 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" d="M8 3.75H5.25a1.5 1.5 0 0 0-1.5 1.5V8m12-4.25h2.75a1.5 1.5 0 0 1 1.5 1.5V8m0 8v2.75a1.5 1.5 0 0 1-1.5 1.5H16m-8 0H5.25a1.5 1.5 0 0 1-1.5-1.5V16" />
+                                                    </svg>
+                                                </span>
+                                            </button>
+                                        @else
+                                            <x-dummy-placeholder :label="$milestone->year" class="size-full" />
+                                        @endif
                                     </div>
+
+                                    <div class="flex-1 rounded-b-lg border border-t-0 border-slate-200 bg-white p-4">
+                                        <p class="text-xs font-bold uppercase tracking-wide text-primary">{{ $milestone->year }}</p>
+                                        <p class="mt-1 text-sm font-bold text-brand-text">{{ $milestone->title() }}</p>
+                                        <p class="mt-2 text-xs leading-relaxed text-text-muted">{{ $milestone->description() }}</p>
+                                    </div>
+
+                                    <div class="-mx-3 mt-4 flex items-center">
+                                        <span class="h-px flex-1 bg-surface"></span>
+                                        <span class="mx-2 size-3 shrink-0 rounded-full border-2 border-primary bg-white"></span>
+                                        <span class="h-px flex-1 bg-surface"></span>
+                                    </div>
+                                    <p class="mt-2 text-center text-xs font-extrabold text-brand-text">{{ $milestone->year }}</p>
                                 </div>
-                            @endif
-                        </div>
-                    @endforeach
+                            @endforeach
+                        @endforeach
+                    </div>
                 </div>
             @else
                 <div class="mt-10 flex h-64 items-center justify-center rounded border border-dashed border-slate-300 bg-surface-mint/40">
