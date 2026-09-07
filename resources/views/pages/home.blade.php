@@ -174,7 +174,7 @@
     {{-- History milestone lightbox --}}
     <div
         data-milestone-lightbox
-        class="fixed inset-0 z-50 hidden items-center justify-center bg-black/90 p-4 sm:p-8"
+        class="fixed inset-0 z-50 hidden bg-black"
         role="dialog"
         aria-modal="true"
         aria-label="{{ __('Milestone photo') }}"
@@ -182,7 +182,7 @@
         <button
             type="button"
             data-milestone-lightbox-close
-            class="absolute right-4 top-4 flex size-10 items-center justify-center rounded-full bg-white/10 text-white transition hover:bg-white/20 sm:right-6 sm:top-6"
+            class="absolute right-4 top-4 z-10 flex size-10 items-center justify-center rounded-full bg-white/10 text-white transition hover:bg-white/20 sm:right-6 sm:top-6"
             aria-label="{{ __('Close') }}"
         >
             <svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -190,10 +190,10 @@
             </svg>
         </button>
 
-        <div class="relative max-h-full w-full max-w-5xl overflow-hidden rounded-lg shadow-2xl">
-            <img data-milestone-lightbox-image src="" alt="" class="max-h-[85vh] w-full object-contain bg-black">
+        <div class="relative size-full">
+            <img data-milestone-lightbox-image src="" alt="" class="size-full object-contain">
 
-            <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/95 via-black/70 to-transparent px-5 pb-5 pt-16 sm:px-10 sm:pb-8 sm:pt-24">
+            <div class="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/95 via-black/70 to-transparent px-5 pb-6 pt-20 sm:px-10 sm:pb-10 sm:pt-32">
                 <p data-milestone-lightbox-year class="text-3xl font-extrabold tracking-tight text-primary sm:text-5xl"></p>
                 <p data-milestone-lightbox-title class="mt-1 text-base font-bold text-white sm:text-xl"></p>
                 <p data-milestone-lightbox-description class="mt-2 max-w-3xl text-sm leading-relaxed text-white/80 sm:text-base"></p>

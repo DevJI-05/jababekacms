@@ -230,13 +230,11 @@ function initHistoryLightbox() {
         description.textContent = trigger.dataset.description ?? '';
 
         lightbox.classList.remove('hidden');
-        lightbox.classList.add('flex');
         document.body.classList.add('overflow-hidden');
     };
 
     const close = () => {
         lightbox.classList.add('hidden');
-        lightbox.classList.remove('flex');
         document.body.classList.remove('overflow-hidden');
         image.src = '';
     };
@@ -248,7 +246,7 @@ function initHistoryLightbox() {
     lightbox.querySelector('[data-milestone-lightbox-close]')?.addEventListener('click', close);
 
     lightbox.addEventListener('click', (event) => {
-        if (event.target === lightbox) close();
+        if (event.target !== image && !event.target.closest('[data-milestone-lightbox-close]')) close();
     });
 
     document.addEventListener('keydown', (event) => {
