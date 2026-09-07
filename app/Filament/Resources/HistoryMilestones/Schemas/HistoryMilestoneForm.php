@@ -3,12 +3,15 @@
 namespace App\Filament\Resources\HistoryMilestones\Schemas;
 
 use App\Models\HistoryEra;
+use App\Support\ImageThumbnailer;
+use Filament\Forms\Components\BaseFileUpload;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Filament\Schemas\Schema;
+use Livewire\Features\SupportFileUploads\TemporaryUploadedFile;
 
 class HistoryMilestoneForm
 {
@@ -63,6 +66,15 @@ class HistoryMilestoneForm
                     ->acceptedFileTypes(['image/*', 'video/*'])
                     ->openable()
                     ->downloadable()
+                    ->saveUploadedFileUsing(function (BaseFileUpload $component, TemporaryUploadedFile $file): ?string {
+                        $path = $component->saveUploadedFile($file);
+
+                        if ($path !== null) {
+                            ImageThumbnailer::generate($component->getDiskName(), $path);
+                        }
+
+                        return $path;
+                    })
                     ->columnSpanFull(),
 
                 Toggle::make('is_active')

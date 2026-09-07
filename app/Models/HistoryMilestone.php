@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Support\ImageThumbnailer;
 use Database\Factories\HistoryMilestoneFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -40,17 +41,26 @@ class HistoryMilestone extends Model
     private const VIDEO_EXTENSIONS = ['mp4', 'mov', 'webm', 'ogg', 'ogv', 'avi', 'mkv'];
 
     /**
-     * @return array<int, array{path: string, type: string, url: string}>
+     * @return array<int, array{path: string, type: string, url: string, thumbUrl: string}>
      */
     public function mediaItems(): array
     {
+        $disk = Storage::disk('public');
+
         return collect($this->media ?? [])
             ->filter(fn (?string $path) => filled($path))
-            ->map(fn (string $path) => [
-                'path' => $path,
-                'type' => in_array(strtolower(pathinfo($path, PATHINFO_EXTENSION)), self::VIDEO_EXTENSIONS, true) ? 'video' : 'image',
-                'url' => Storage::disk('public')->url($path),
-            ])
+            ->map(function (string $path) use ($disk) {
+                $type = in_array(strtolower(pathinfo($path, PATHINFO_EXTENSION)), self::VIDEO_EXTENSIONS, true) ? 'video' : 'image';
+                $url = $disk->url($path);
+                $thumbPath = ImageThumbnailer::thumbPathFor($path);
+
+                return [
+                    'path' => $path,
+                    'type' => $type,
+                    'url' => $url,
+                    'thumbUrl' => ($type === 'image' && $disk->exists($thumbPath)) ? $disk->url($thumbPath) : $url,
+                ];
+            })
             ->values()
             ->all();
     }

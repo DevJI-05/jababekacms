@@ -136,7 +136,7 @@
                                                 @if ($primaryMedia && $primaryMedia['type'] === 'video')
                                                     <video src="{{ $primaryMedia['url'] }}" class="size-full object-cover" muted loop playsinline autoplay></video>
                                                 @elseif ($primaryMedia)
-                                                    <img src="{{ $primaryMedia['url'] }}" alt="{{ $milestone->title() }}" class="size-full object-cover">
+                                                    <img src="{{ $primaryMedia['thumbUrl'] }}" alt="{{ $milestone->title() }}" class="size-full object-cover" loading="lazy">
                                                 @else
                                                     <x-dummy-placeholder :label="$milestone->year" class="size-full" />
                                                 @endif
