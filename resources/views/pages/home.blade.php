@@ -140,7 +140,7 @@
                                                         type="button"
                                                         class="group relative size-full cursor-zoom-in overflow-hidden"
                                                         data-milestone-trigger
-                                                        data-image="{{ $primaryMedia['url'] }}"
+                                                        data-media="{{ json_encode($milestone->mediaItems()) }}"
                                                         data-year="{{ $milestone->year }}"
                                                         data-title="{{ $milestone->title() }}"
                                                         data-description="{{ $milestone->description() }}"
@@ -190,14 +190,31 @@
             </svg>
         </button>
 
-        <div class="relative size-full">
-            <img data-milestone-lightbox-image src="" alt="" class="size-full object-contain">
+        <button
+            type="button"
+            data-milestone-lightbox-prev
+            class="absolute left-3 top-1/2 z-10 flex size-11 -translate-y-1/2 items-center justify-center rounded-full bg-white/10 text-white transition hover:bg-white/20 sm:left-6 sm:size-12"
+            aria-label="{{ __('Previous photo') }}"
+        >
+            <svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" /></svg>
+        </button>
+        <button
+            type="button"
+            data-milestone-lightbox-next
+            class="absolute right-3 top-1/2 z-10 flex size-11 -translate-y-1/2 items-center justify-center rounded-full bg-white/10 text-white transition hover:bg-white/20 sm:right-6 sm:size-12"
+            aria-label="{{ __('Next photo') }}"
+        >
+            <svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" /></svg>
+        </button>
 
-            <div class="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/95 via-black/70 to-transparent px-5 pb-6 pt-20 sm:px-10 sm:pb-10 sm:pt-32">
-                <p data-milestone-lightbox-year class="text-3xl font-extrabold tracking-tight text-primary sm:text-5xl"></p>
-                <p data-milestone-lightbox-title class="mt-1 text-base font-bold text-white sm:text-xl"></p>
-                <p data-milestone-lightbox-description class="mt-2 max-w-3xl text-sm leading-relaxed text-white/80 sm:text-base"></p>
-            </div>
+        <div class="size-full overflow-hidden">
+            <div data-milestone-lightbox-track class="flex size-full transition-transform duration-300 ease-out"></div>
+        </div>
+
+        <div class="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/95 via-black/70 to-transparent px-5 pb-6 pt-20 sm:px-10 sm:pb-10 sm:pt-32">
+            <p data-milestone-lightbox-year class="text-3xl font-extrabold tracking-tight text-primary sm:text-5xl"></p>
+            <p data-milestone-lightbox-title class="mt-1 text-base font-bold text-white sm:text-xl"></p>
+            <p data-milestone-lightbox-description class="mt-2 max-w-3xl text-sm leading-relaxed text-white/80 sm:text-base"></p>
         </div>
     </div>
 

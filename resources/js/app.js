@@ -217,17 +217,69 @@ function initHistoryLightbox() {
     const lightbox = document.querySelector('[data-milestone-lightbox]');
     if (!lightbox) return;
 
-    const image = lightbox.querySelector('[data-milestone-lightbox-image]');
+    const track = lightbox.querySelector('[data-milestone-lightbox-track]');
+    const prevButton = lightbox.querySelector('[data-milestone-lightbox-prev]');
+    const nextButton = lightbox.querySelector('[data-milestone-lightbox-next]');
     const year = lightbox.querySelector('[data-milestone-lightbox-year]');
     const title = lightbox.querySelector('[data-milestone-lightbox-title]');
     const description = lightbox.querySelector('[data-milestone-lightbox-description]');
 
+    let media = [];
+    let index = 0;
+
+    const buildSlide = (item) => {
+        const slide = document.createElement('div');
+        slide.className = 'size-full shrink-0';
+
+        const el = document.createElement(item.type === 'video' ? 'video' : 'img');
+        el.src = item.url;
+        el.className = 'size-full object-cover';
+
+        if (item.type === 'video') {
+            el.muted = true;
+            el.loop = true;
+            el.playsInline = true;
+            el.controls = true;
+        } else {
+            el.alt = '';
+        }
+
+        slide.appendChild(el);
+
+        return slide;
+    };
+
+    const goTo = (next) => {
+        index = (next + media.length) % media.length;
+        track.style.transform = `translateX(-${index * (100 / media.length)}%)`;
+
+        track.querySelectorAll('video').forEach((video, i) => {
+            if (i === index) video.play().catch(() => {});
+            else video.pause();
+        });
+    };
+
     const open = (trigger) => {
-        image.src = trigger.dataset.image ?? '';
-        image.alt = trigger.dataset.title ?? '';
+        media = JSON.parse(trigger.dataset.media ?? '[]');
+        if (media.length === 0) return;
+
+        track.style.width = `${media.length * 100}%`;
+        track.replaceChildren(...media.map(buildSlide));
+        track.querySelectorAll(':scope > div').forEach((slide) => {
+            slide.style.width = `${100 / media.length}%`;
+        });
+
+        const hasMultiple = media.length > 1;
+        prevButton.classList.toggle('hidden', !hasMultiple);
+        nextButton.classList.toggle('hidden', !hasMultiple);
+
         year.textContent = trigger.dataset.year ?? '';
         title.textContent = trigger.dataset.title ?? '';
         description.textContent = trigger.dataset.description ?? '';
+
+        track.style.transition = 'none';
+        goTo(0);
+        requestAnimationFrame(() => { track.style.transition = ''; });
 
         lightbox.classList.remove('hidden');
         document.body.classList.add('overflow-hidden');
@@ -236,7 +288,8 @@ function initHistoryLightbox() {
     const close = () => {
         lightbox.classList.add('hidden');
         document.body.classList.remove('overflow-hidden');
-        image.src = '';
+        track.replaceChildren();
+        media = [];
     };
 
     document.querySelectorAll('[data-milestone-trigger]').forEach((trigger) => {
@@ -244,13 +297,19 @@ function initHistoryLightbox() {
     });
 
     lightbox.querySelector('[data-milestone-lightbox-close]')?.addEventListener('click', close);
+    prevButton?.addEventListener('click', () => goTo(index - 1));
+    nextButton?.addEventListener('click', () => goTo(index + 1));
 
     lightbox.addEventListener('click', (event) => {
-        if (event.target !== image && !event.target.closest('[data-milestone-lightbox-close]')) close();
+        if (event.target === lightbox) close();
     });
 
     document.addEventListener('keydown', (event) => {
-        if (event.key === 'Escape' && !lightbox.classList.contains('hidden')) close();
+        if (lightbox.classList.contains('hidden')) return;
+
+        if (event.key === 'Escape') close();
+        if (event.key === 'ArrowLeft') goTo(index - 1);
+        if (event.key === 'ArrowRight') goTo(index + 1);
     });
 }
 
