@@ -29,7 +29,7 @@
         <meta name="twitter:description" content="{{ $metaDescription }}">
         <meta name="twitter:image" content="{{ $metaImage }}">
 
-        <link rel="icon" type="image/png" href="{{ asset('images/brand/logo2.png') }}">
+        <link rel="icon" type="image/webp" href="{{ asset('images/brand/favicon.webp') }}">
 
         @fonts
         @vite(['resources/css/app.css', 'resources/js/app.js'])
