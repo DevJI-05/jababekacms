@@ -213,6 +213,49 @@ function initParallax() {
     update();
 }
 
+function initHistoryLightbox() {
+    const lightbox = document.querySelector('[data-milestone-lightbox]');
+    if (!lightbox) return;
+
+    const image = lightbox.querySelector('[data-milestone-lightbox-image]');
+    const year = lightbox.querySelector('[data-milestone-lightbox-year]');
+    const title = lightbox.querySelector('[data-milestone-lightbox-title]');
+    const description = lightbox.querySelector('[data-milestone-lightbox-description]');
+
+    const open = (trigger) => {
+        image.src = trigger.dataset.image ?? '';
+        image.alt = trigger.dataset.title ?? '';
+        year.textContent = trigger.dataset.year ?? '';
+        title.textContent = trigger.dataset.title ?? '';
+        description.textContent = trigger.dataset.description ?? '';
+
+        lightbox.classList.remove('hidden');
+        lightbox.classList.add('flex');
+        document.body.classList.add('overflow-hidden');
+    };
+
+    const close = () => {
+        lightbox.classList.add('hidden');
+        lightbox.classList.remove('flex');
+        document.body.classList.remove('overflow-hidden');
+        image.src = '';
+    };
+
+    document.querySelectorAll('[data-milestone-trigger]').forEach((trigger) => {
+        trigger.addEventListener('click', () => open(trigger));
+    });
+
+    lightbox.querySelector('[data-milestone-lightbox-close]')?.addEventListener('click', close);
+
+    lightbox.addEventListener('click', (event) => {
+        if (event.target === lightbox) close();
+    });
+
+    document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && !lightbox.classList.contains('hidden')) close();
+    });
+}
+
 function initCookieBanner() {
     const banner = document.querySelector('[data-cookie-banner]');
     if (!banner) return;
@@ -234,5 +277,6 @@ document.addEventListener('DOMContentLoaded', () => {
     initTabs();
     initParallax();
     initBackToTop();
+    initHistoryLightbox();
     initCookieBanner();
 });

@@ -136,7 +136,22 @@
                                                 @if ($primaryMedia && $primaryMedia['type'] === 'video')
                                                     <video src="{{ $primaryMedia['url'] }}" class="size-full object-cover" muted loop playsinline autoplay></video>
                                                 @elseif ($primaryMedia)
-                                                    <img src="{{ $primaryMedia['thumbUrl'] }}" alt="{{ $milestone->title() }}" class="size-full object-cover" loading="lazy">
+                                                    <button
+                                                        type="button"
+                                                        class="group relative size-full cursor-zoom-in overflow-hidden"
+                                                        data-milestone-trigger
+                                                        data-image="{{ $primaryMedia['url'] }}"
+                                                        data-year="{{ $milestone->year }}"
+                                                        data-title="{{ $milestone->title() }}"
+                                                        data-description="{{ $milestone->description() }}"
+                                                    >
+                                                        <img src="{{ $primaryMedia['thumbUrl'] }}" alt="{{ $milestone->title() }}" class="size-full object-cover transition duration-300 group-hover:scale-105" loading="lazy">
+                                                        <span class="absolute inset-0 flex items-center justify-center bg-black/0 opacity-0 transition group-hover:bg-black/30 group-hover:opacity-100">
+                                                            <svg class="size-6 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                                                <path stroke-linecap="round" stroke-linejoin="round" d="M8 3.75H5.25a1.5 1.5 0 0 0-1.5 1.5V8m12-4.25h2.75a1.5 1.5 0 0 1 1.5 1.5V8m0 8v2.75a1.5 1.5 0 0 1-1.5 1.5H16m-8 0H5.25a1.5 1.5 0 0 1-1.5-1.5V16" />
+                                                            </svg>
+                                                        </span>
+                                                    </button>
                                                 @else
                                                     <x-dummy-placeholder :label="$milestone->year" class="size-full" />
                                                 @endif
@@ -155,6 +170,36 @@
             @endif
         </div>
     </section>
+
+    {{-- History milestone lightbox --}}
+    <div
+        data-milestone-lightbox
+        class="fixed inset-0 z-50 hidden items-center justify-center bg-black/90 p-4 sm:p-8"
+        role="dialog"
+        aria-modal="true"
+        aria-label="{{ __('Milestone photo') }}"
+    >
+        <button
+            type="button"
+            data-milestone-lightbox-close
+            class="absolute right-4 top-4 flex size-10 items-center justify-center rounded-full bg-white/10 text-white transition hover:bg-white/20 sm:right-6 sm:top-6"
+            aria-label="{{ __('Close') }}"
+        >
+            <svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+            </svg>
+        </button>
+
+        <div class="relative max-h-full w-full max-w-5xl overflow-hidden rounded-lg shadow-2xl">
+            <img data-milestone-lightbox-image src="" alt="" class="max-h-[85vh] w-full object-contain bg-black">
+
+            <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/95 via-black/70 to-transparent px-5 pb-5 pt-16 sm:px-10 sm:pb-8 sm:pt-24">
+                <p data-milestone-lightbox-year class="text-3xl font-extrabold tracking-tight text-primary sm:text-5xl"></p>
+                <p data-milestone-lightbox-title class="mt-1 text-base font-bold text-white sm:text-xl"></p>
+                <p data-milestone-lightbox-description class="mt-2 max-w-3xl text-sm leading-relaxed text-white/80 sm:text-base"></p>
+            </div>
+        </div>
+    </div>
 
     {{-- 04. FUTURE DEVELOPMENT --}}
     @if ($futureDevelopments->isNotEmpty())
