@@ -110,6 +110,8 @@
             <h2 class="text-2xl font-extrabold text-brand-text sm:text-3xl">{{ __('From One Vision to a City Built for Tomorrow.') }}</h2>
             <p class="mt-2 text-sm text-text-muted">{{ __('Explore the milestones that shaped Jababeka — from 1989 to a growing Net Zero Industrial Ecosystem.') }}</p>
 
+            @php $lightboxSlides = []; @endphp
+
             @if ($historyEras->isNotEmpty())
                 <div class="mt-10 flex flex-col gap-10">
                     @foreach ($historyEras as $era)
@@ -132,7 +134,17 @@
                                             </div>
 
                                             <div class="h-32 w-full">
-                                                @php $primaryMedia = $milestone->primaryMedia(); @endphp
+                                                @php
+                                                    $primaryMedia = $milestone->primaryMedia();
+                                                    $milestoneStartIndex = count($lightboxSlides);
+                                                    foreach ($milestone->mediaItems() as $mediaItem) {
+                                                        $lightboxSlides[] = array_merge($mediaItem, [
+                                                            'year' => $milestone->year,
+                                                            'title' => $milestone->title(),
+                                                            'description' => $milestone->description(),
+                                                        ]);
+                                                    }
+                                                @endphp
                                                 @if ($primaryMedia && $primaryMedia['type'] === 'video')
                                                     <video src="{{ $primaryMedia['url'] }}" class="size-full object-cover" muted loop playsinline autoplay></video>
                                                 @elseif ($primaryMedia)
@@ -140,10 +152,7 @@
                                                         type="button"
                                                         class="group relative size-full cursor-zoom-in overflow-hidden"
                                                         data-milestone-trigger
-                                                        data-media="{{ json_encode($milestone->mediaItems()) }}"
-                                                        data-year="{{ $milestone->year }}"
-                                                        data-title="{{ $milestone->title() }}"
-                                                        data-description="{{ $milestone->description() }}"
+                                                        data-start-index="{{ $milestoneStartIndex }}"
                                                     >
                                                         <img src="{{ $primaryMedia['thumbUrl'] }}" alt="{{ $milestone->title() }}" class="size-full object-cover transition duration-300 group-hover:scale-105" loading="lazy">
                                                         <span class="absolute inset-0 flex items-center justify-center bg-black/0 opacity-0 transition group-hover:bg-black/30 group-hover:opacity-100">
@@ -172,6 +181,8 @@
     </section>
 
     {{-- History milestone lightbox --}}
+    <script type="application/json" data-milestone-lightbox-slides>@json($lightboxSlides)</script>
+
     <div
         data-milestone-lightbox
         class="fixed inset-0 z-50 hidden bg-black"

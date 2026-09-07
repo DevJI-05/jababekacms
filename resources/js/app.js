@@ -217,6 +217,9 @@ function initHistoryLightbox() {
     const lightbox = document.querySelector('[data-milestone-lightbox]');
     if (!lightbox) return;
 
+    const slidesData = JSON.parse(document.querySelector('[data-milestone-lightbox-slides]')?.textContent ?? '[]');
+    if (slidesData.length === 0) return;
+
     const track = lightbox.querySelector('[data-milestone-lightbox-track]');
     const prevButton = lightbox.querySelector('[data-milestone-lightbox-prev]');
     const nextButton = lightbox.querySelector('[data-milestone-lightbox-next]');
@@ -224,16 +227,17 @@ function initHistoryLightbox() {
     const title = lightbox.querySelector('[data-milestone-lightbox-title]');
     const description = lightbox.querySelector('[data-milestone-lightbox-description]');
 
-    let media = [];
     let index = 0;
 
     const buildSlide = (item) => {
         const slide = document.createElement('div');
         slide.className = 'size-full shrink-0';
+        slide.style.width = `${100 / slidesData.length}%`;
 
         const el = document.createElement(item.type === 'video' ? 'video' : 'img');
         el.src = item.url;
         el.className = 'size-full object-cover';
+        el.loading = 'lazy';
 
         if (item.type === 'video') {
             el.muted = true;
@@ -249,9 +253,22 @@ function initHistoryLightbox() {
         return slide;
     };
 
+    track.style.width = `${slidesData.length * 100}%`;
+    track.replaceChildren(...slidesData.map(buildSlide));
+
+    if (slidesData.length > 1) {
+        prevButton.classList.remove('hidden');
+        nextButton.classList.remove('hidden');
+    }
+
     const goTo = (next) => {
-        index = (next + media.length) % media.length;
-        track.style.transform = `translateX(-${index * (100 / media.length)}%)`;
+        index = (next + slidesData.length) % slidesData.length;
+        track.style.transform = `translateX(-${index * (100 / slidesData.length)}%)`;
+
+        const current = slidesData[index];
+        year.textContent = current.year ?? '';
+        title.textContent = current.title ?? '';
+        description.textContent = current.description ?? '';
 
         track.querySelectorAll('video').forEach((video, i) => {
             if (i === index) video.play().catch(() => {});
@@ -259,28 +276,8 @@ function initHistoryLightbox() {
         });
     };
 
-    const open = (trigger) => {
-        media = JSON.parse(trigger.dataset.media ?? '[]');
-        if (media.length === 0) return;
-
-        track.style.width = `${media.length * 100}%`;
-        track.replaceChildren(...media.map(buildSlide));
-        track.querySelectorAll(':scope > div').forEach((slide) => {
-            slide.style.width = `${100 / media.length}%`;
-        });
-
-        const hasMultiple = media.length > 1;
-        prevButton.classList.toggle('hidden', !hasMultiple);
-        nextButton.classList.toggle('hidden', !hasMultiple);
-
-        year.textContent = trigger.dataset.year ?? '';
-        title.textContent = trigger.dataset.title ?? '';
-        description.textContent = trigger.dataset.description ?? '';
-
-        track.style.transition = 'none';
-        goTo(0);
-        requestAnimationFrame(() => { track.style.transition = ''; });
-
+    const open = (startIndex) => {
+        goTo(startIndex);
         lightbox.classList.remove('hidden');
         document.body.classList.add('overflow-hidden');
     };
@@ -288,12 +285,11 @@ function initHistoryLightbox() {
     const close = () => {
         lightbox.classList.add('hidden');
         document.body.classList.remove('overflow-hidden');
-        track.replaceChildren();
-        media = [];
+        track.querySelectorAll('video').forEach((video) => video.pause());
     };
 
     document.querySelectorAll('[data-milestone-trigger]').forEach((trigger) => {
-        trigger.addEventListener('click', () => open(trigger));
+        trigger.addEventListener('click', () => open(Number(trigger.dataset.startIndex) || 0));
     });
 
     lightbox.querySelector('[data-milestone-lightbox-close]')?.addEventListener('click', close);
@@ -310,6 +306,37 @@ function initHistoryLightbox() {
         if (event.key === 'Escape') close();
         if (event.key === 'ArrowLeft') goTo(index - 1);
         if (event.key === 'ArrowRight') goTo(index + 1);
+    });
+
+    let touchStartX = 0;
+    let touchStartY = 0;
+    let touchDeltaX = 0;
+
+    track.addEventListener('touchstart', (event) => {
+        touchStartX = event.touches[0].clientX;
+        touchStartY = event.touches[0].clientY;
+        touchDeltaX = 0;
+        track.style.transition = 'none';
+    }, { passive: true });
+
+    track.addEventListener('touchmove', (event) => {
+        touchDeltaX = event.touches[0].clientX - touchStartX;
+        const touchDeltaY = event.touches[0].clientY - touchStartY;
+        if (Math.abs(touchDeltaX) < Math.abs(touchDeltaY)) return;
+
+        const viewportWidth = track.parentElement.clientWidth;
+        const base = -index * (100 / slidesData.length);
+        const dragPercent = (touchDeltaX / (viewportWidth * slidesData.length)) * 100;
+        track.style.transform = `translateX(${base + dragPercent}%)`;
+    }, { passive: true });
+
+    track.addEventListener('touchend', () => {
+        track.style.transition = '';
+
+        const threshold = track.parentElement.clientWidth * 0.15;
+        if (touchDeltaX > threshold) goTo(index - 1);
+        else if (touchDeltaX < -threshold) goTo(index + 1);
+        else goTo(index);
     });
 }
 
